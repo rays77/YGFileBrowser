@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'YGFileBrowser_Example' do
+  pod 'YGFileBrowser', :path => '../'
+
+  target 'YGFileBrowser_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

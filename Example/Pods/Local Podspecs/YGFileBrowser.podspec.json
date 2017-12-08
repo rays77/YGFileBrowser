@@ -1,0 +1,22 @@
+{
+  "name": "YGFileBrowser",
+  "version": "0.1.0",
+  "summary": "A short description of YGFileBrowser.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/rays77@163.com/YGFileBrowser",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "rays77@163.com": "376906177@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/rays77@163.com/YGFileBrowser.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "YGFileBrowser/Classes/**/*"
+}
