@@ -30,13 +30,17 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'YGFileBrowser/Classes/**/*'
+  s.source_files = 'YGFileBrowser/Classes/FileSelectControler/**/*'
   
-  # s.resource_bundles = {
-  #   'YGFileBrowser' => ['YGFileBrowser/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'YGFileBrowser' => ['YGFileBrowser/Assets/*.png']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'AFNetworking', '~> 3.0'
+  s.dependency 'Masonry', '~> 0.6.3'
+  s.dependency 'SDWebImage', '~> 3.7.3'
+  s.dependency 'MJExtension', '~> 3.0.10'
+
 end
