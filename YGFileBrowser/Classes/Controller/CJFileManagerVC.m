@@ -25,7 +25,7 @@ static NSInteger MAXFILESIZE = 50000000;
 #import "UIView+CJToast.h"
 #import "UIColor+CJColorCategory.h"
 #import "CJFileObjModel.h"
-#import <MJExtension.h>
+#import <MJExtension/MJExtension.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
 CGFloat departmentH = 48;
