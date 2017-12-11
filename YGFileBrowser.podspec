@@ -30,13 +30,13 @@ iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'YGFileBrowser/Classes/FileSelectControler/**/**/*'
+  s.source_files = 'YGFileBrowser/Classes/FileSelectControler/*.{h,m}'
   
   # s.resource_bundles = {
   #   'YGFileBrowser' => ['YGFileBrowser/Assets/*.png']
   # }
 
-  s.public_header_files = 'Pod/Classes/**/**/*.h'
+  # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'AFNetworking', '~> 3.0'
   s.dependency 'Masonry', '~> 0.6.3'
