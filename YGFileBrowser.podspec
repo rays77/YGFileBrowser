@@ -37,7 +37,7 @@ iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks    = "Foundation", "UIKit"
   s.dependency 'AFNetworking', '~> 3.0'
   s.dependency 'Masonry', '~> 0.6.3'
   s.dependency 'SDWebImage', '~> 3.7.3'
