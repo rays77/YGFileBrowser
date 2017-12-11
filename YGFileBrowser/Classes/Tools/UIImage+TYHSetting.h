@@ -17,7 +17,7 @@
 /**
  *  根据CJsession返回图片
  */
-+ (UIImage *)imageWithModel:(CJSession * )session;
+//+ (UIImage *)imageWithModel:(CJSession * )session;
 
 /**
  *  根据CJFileObjModel 返回图片

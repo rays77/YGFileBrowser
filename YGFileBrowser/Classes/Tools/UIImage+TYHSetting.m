@@ -33,6 +33,12 @@ static const NSString *Application_types[Application_count] = {@"apk",@"APK",@"i
     UIGraphicsEndImageContext();
     return theImage;
 }
+
+//+ (UIImage *)imageWithModel:(CJSession * )session
+//{
+//    return <#expression#>
+//}
+
 + (UIImage *)imageWithFileModel:(CJFileObjModel *)model
 {
     NSArray *textTypesArray = [NSArray arrayWithObjects: TEXT_TYPES count: TEXT_TYPES_COUNT];

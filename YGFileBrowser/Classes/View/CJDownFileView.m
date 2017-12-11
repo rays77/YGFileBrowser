@@ -11,11 +11,11 @@
 #import "HSDownloadManager.h"
 #import "CJFileTools.h"
 #import "UIImageView+WebCache.h"
-#import "NSString+hash.h"
+#import "NSString+Hash.h"
 #import "UIImage+TYHSetting.h"
 #import "UIColor+CJColorCategory.h"
 #import "CJHttp.h"
-#import <Masonry/Masonry.h>
+#import "Masonry.h"
 #define HomeFilePath [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CJFileCache1"]
 #define HSCachesDirectory2 [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CJFileCache2"]
 #define color01a  [UIColor colorWithRed:0.004 green:0.651 blue:0.996 alpha:1.000]

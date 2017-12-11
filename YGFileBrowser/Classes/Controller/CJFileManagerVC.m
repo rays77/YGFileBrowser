@@ -25,7 +25,7 @@ static NSInteger MAXFILESIZE = 50000000;
 #import "UIView+CJToast.h"
 #import "UIColor+CJColorCategory.h"
 #import "CJFileObjModel.h"
-#import <MJExtension/MJExtension.h>
+#import "MJExtension.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 CGFloat departmentH = 48;
@@ -125,7 +125,7 @@ CGFloat toolBarHeight = 49;
                     imageOption.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
                     imageOption.resizeMode = PHImageRequestOptionsResizeModeFast;
                     
-                    PHImageRequestID imageRequestID =[manager requestImageForAsset:asset targetSize:CGSizeMake(70, 70) contentMode:PHImageContentModeAspectFill options:imageOption resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                    [manager requestImageForAsset:asset targetSize:CGSizeMake(70, 70) contentMode:PHImageContentModeAspectFill options:imageOption resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                     
                         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
                         if (downloadFinined && result) {
@@ -368,7 +368,7 @@ CGFloat toolBarHeight = 49;
     self.view.backgroundColor = [UIColor whiteColor];
     //默认加入几个文件
     NSString *path1 = [[NSBundle mainBundle] pathForResource:@"宋冬野 - 董小姐" ofType:@"mp3"];
-    NSString *path2 = [[NSBundle mainBundle] pathForResource:@"IMG_4143" ofType:@"PNG"];
+//    NSString *path2 = [[NSBundle mainBundle] pathForResource:@"IMG_4143" ofType:@"PNG"];
     NSString *path3 = [[NSBundle mainBundle] pathForResource:@"angle" ofType:@"jpg"];
     NSString *path4 = [[NSBundle mainBundle] pathForResource:@"he is a pirate" ofType:@"mp3"];
 
