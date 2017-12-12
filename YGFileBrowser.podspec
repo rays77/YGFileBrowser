@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YGFileBrowser'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'iOS文件管理和预览.'
 
 # This description is used to generate tags and improve search results.
@@ -24,7 +24,7 @@ iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
   s.homepage         = 'https://github.com/rays77/YGFileBrowser'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'YG Rays' => '376906177@qq.com' }
+  s.author           = { 'rays77' }
   s.source           = { :git => 'https://github.com/rays77/YGFileBrowser.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 

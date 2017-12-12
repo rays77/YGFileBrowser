@@ -1,6 +1,6 @@
 # YGFileBrowser
 
-[![CI Status](http://img.shields.io/travis/rays77@163.com/YGFileBrowser.svg?style=flat)](https://travis-ci.org/rays77@163.com/YGFileBrowser)
+[![CI Status](http://img.shields.io/travis/rays77/YGFileBrowser.svg?style=flat)](https://travis-ci.org/rays77/YGFileBrowser)
 [![Version](https://img.shields.io/cocoapods/v/YGFileBrowser.svg?style=flat)](http://cocoapods.org/pods/YGFileBrowser)
 [![License](https://img.shields.io/cocoapods/l/YGFileBrowser.svg?style=flat)](http://cocoapods.org/pods/YGFileBrowser)
 [![Platform](https://img.shields.io/cocoapods/p/YGFileBrowser.svg?style=flat)](http://cocoapods.org/pods/YGFileBrowser)
@@ -22,7 +22,7 @@ pod 'YGFileBrowser'
 
 ## Author
 
-rays77@163.com, 376906177@qq.com
+rays77
 
 ## License
 
