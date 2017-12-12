@@ -24,7 +24,7 @@ iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
   s.homepage         = 'https://github.com/rays77/YGFileBrowser'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'rays77' }
+  s.author           = { 'rays77' => '376906177@qq.com' }
   s.source           = { :git => 'https://github.com/rays77/YGFileBrowser.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
