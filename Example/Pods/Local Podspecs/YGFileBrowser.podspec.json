@@ -1,6 +1,6 @@
 {
   "name": "YGFileBrowser",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "summary": "iOS文件管理和预览.",
   "description": "iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。",
   "homepage": "https://github.com/rays77/YGFileBrowser",
@@ -9,16 +9,21 @@
     "file": "LICENSE"
   },
   "authors": {
-    "rays77@163.com": "376906177@qq.com"
+    "rays77": "376906177@qq.com"
   },
   "source": {
     "git": "https://github.com/rays77/YGFileBrowser.git",
-    "tag": "0.1.1"
+    "tag": "0.1.4"
   },
   "platforms": {
     "ios": "8.0"
   },
   "source_files": "YGFileBrowser/Classes/**/*.{h,m}",
+  "resource_bundles": {
+    "YGFileBrowser": [
+      "YGFileBrowser/Assets/*.{png,jpeg,jpg}"
+    ]
+  },
   "frameworks": [
     "Foundation",
     "UIKit",
