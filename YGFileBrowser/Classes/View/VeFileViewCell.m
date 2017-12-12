@@ -10,11 +10,15 @@
 #import "Masonry.h"
 #import "CJFileObjModel.h"
 #import "UIColor+CJColorCategory.h"
+#import "NSBundle+YGFileBrowser.h"
+
 @interface VeFileViewCell ()
 @property (nonatomic,strong) UIImageView *headImagV;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UILabel *detailLabel;
 @property (nonatomic,strong) UIButton *sendBtn;
+@property (nonatomic,strong) UIImage *norImage;
+@property (nonatomic,strong) UIImage *selImage;
 @end
 @implementation VeFileViewCell
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -33,8 +37,9 @@
         _detailLabel.lineBreakMode=NSLineBreakByTruncatingMiddle;
         
         _sendBtn = [[UIButton alloc] init];
-        [_sendBtn setImage:[UIImage imageNamed:@"未选-10"] forState:UIControlStateNormal];
-        [_sendBtn setImage:[UIImage imageNamed:@"选中-10"] forState:UIControlStateSelected];
+        
+        [_sendBtn setImage:self.norImage forState:UIControlStateNormal];
+        [_sendBtn setImage:self.selImage forState:UIControlStateSelected];
 
         [_sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_sendBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
@@ -49,6 +54,20 @@
         [self.contentView addSubview:_sendBtn];
     }
     return self;
+}
+- (UIImage *)norImage
+{
+    if (_norImage == nil) {
+        _norImage = [NSBundle yg_imageNamed:"未选@2x.png"];
+    }
+    return _norImage
+}
+- (UIImage *)selImage
+{
+    if (_selImage == nil) {
+        _selImage = [NSBundle yg_imageNamed:"选中@2x.png"];
+    }
+    return _selImage
 }
 - (void)setModel:(CJFileObjModel *)model
 {
