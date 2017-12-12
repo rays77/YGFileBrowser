@@ -58,16 +58,16 @@
 - (UIImage *)norImage
 {
     if (_norImage == nil) {
-        _norImage = [NSBundle yg_imageNamed:"未选@2x.png"];
+        _norImage = [NSBundle yg_imageNamed:@"未选@2x.png"];
     }
-    return _norImage
+    return _norImage;
 }
 - (UIImage *)selImage
 {
     if (_selImage == nil) {
-        _selImage = [NSBundle yg_imageNamed:"选中@2x.png"];
+        _selImage = [NSBundle yg_imageNamed:@"选中@2x.png"];
     }
-    return _selImage
+    return _selImage;
 }
 - (void)setModel:(CJFileObjModel *)model
 {

@@ -23,7 +23,7 @@
 {
     static UIImage *image = nil;
     if (image == nil) {
-        image = [[UIImage imageWithContentsOfFile:[[self mj_refreshBundle] pathForResource:name ofType:nil]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        image = [[UIImage imageWithContentsOfFile:[[self yg_bundle] pathForResource:name ofType:nil]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return image;
 }

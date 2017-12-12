@@ -18,6 +18,7 @@
 #import "HSDownloadManager.h"
 #import "HSSessionModel.h"
 #import "NSString+Hash.h"
+#import "NSBundle+YGFileBrowser.h"
 #import "UIColor+CJColorCategory.h"
 #import "UIImage+TYHSetting.h"
 #import "UIView+CJToast.h"
