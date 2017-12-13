@@ -34,11 +34,16 @@
 
 - (UIView *)indicatorView {
     if (!_indicatorView) {
-        
         _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0,46, DepartmentWidth, 2)];
         _indicatorView.backgroundColor = [UIColor colorWithHexString:@"22aeff"];
     }
     return _indicatorView;
+}
+
+- (UIView *)bottomLine {
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.indicatorView.frame)-0.5, CJScreenWidth, 0.5)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    return line;
 }
 
 #pragma mark - Property
@@ -83,7 +88,7 @@
     if (self) {
         self.departmentArr = partArr;
         self.showsHorizontalScrollIndicator = NO;
-        self.backgroundColor = [UIColor grayColor];
+//        self.backgroundColor = [UIColor grayColor];
         
         [self initializeSubviews];
     }
@@ -106,7 +111,7 @@
         [partBtn setTitle:title forState:UIControlStateSelected];
         
         [partBtn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
-        [partBtn setTitleColor:[UIColor colorWithHexString:@"22aeff"]  forState:UIControlStateSelected];
+//        [partBtn setTitleColor:[UIColor colorWithHexString:@"22aeff"]  forState:UIControlStateSelected];
         [partBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [partBtn addTarget:self action:@selector(clickDepartmentButton:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -136,6 +141,7 @@
     }
     
     [self addSubview:self.indicatorView];
+    [self addSubview:[self bottomLine]];
     
     self.bounces = NO;
     self.delegate = self;
@@ -158,7 +164,6 @@
             else {
                 btn.selected = NO;
             }
-            
         }
         
         if ([self.cj_delegate respondsToSelector:@selector(didScrollToIndex:withSelectMode:)]) {

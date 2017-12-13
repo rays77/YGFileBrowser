@@ -8,20 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-
-
 @class CJFileObjModel;
-
-typedef NS_ENUM(NSUInteger, SelectFileMode) {
-    RecentTimeSendFileMode,
-    LocalFileMode,
-};
 
 @protocol FileSelectVcDelegate <NSObject>
 @required
 //点击发送的事件
 - (void)fileViewControlerSelected:(NSArray <CJFileObjModel *> *)fileModels;
 @end
+
+
 @interface CJFileManagerVC : UIViewController
 @property (nonatomic,weak) id<FileSelectVcDelegate> fileSelectVcDelegate;
 @end

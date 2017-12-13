@@ -13,6 +13,7 @@
 #import "Masonry.h"
 #import "UIView+LCCategory.h"
 #import "CJDownFileView.h"
+
 @interface CJFlieLookUpVC ()<UIDocumentInteractionControllerDelegate>
 @property (nonatomic,strong) CJFileObjModel *actualmodel;
 @property (nonatomic,strong)UIDocumentInteractionController *documentInteraction;
@@ -149,7 +150,5 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
 
 @end

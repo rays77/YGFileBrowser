@@ -21,9 +21,9 @@
 
 + (UIImage *)yg_imageNamed:(NSString *)name
 {
-    static UIImage *image = nil;
+    UIImage *image = [UIImage imageWithContentsOfFile:[[self yg_bundle] pathForResource:name ofType:nil]];
     if (image == nil) {
-        image = [[UIImage imageWithContentsOfFile:[[self yg_bundle] pathForResource:name ofType:nil]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        image = [UIImage imageWithContentsOfFile:[[self yg_bundle] pathForResource:@"未知问题-本机@2x.png" ofType:nil]];
     }
     return image;
 }

@@ -19,7 +19,11 @@
     "ios": "8.0"
   },
   "source_files": "YGFileBrowser/Classes/**/*.{h,m}",
-  "resources": "YGFileBrowser/Assets/YGFileBrowser.bundle",
+  "resource_bundles": {
+    "YGFileBrowser": [
+      "YGFileBrowser/Assets/*.{png,jpeg,jpg}"
+    ]
+  },
   "frameworks": [
     "Foundation",
     "UIKit",

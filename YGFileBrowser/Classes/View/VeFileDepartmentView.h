@@ -26,8 +26,6 @@
 - (instancetype)initWithParts:(NSArray *)partArr;
 - (instancetype)initWithParts:(NSArray *)partArr withFrame:(CGRect)frame;
 
-
-
 - (void)replaceDeparmentTitleArrWithNewArr:(NSArray *)arr ;
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex;

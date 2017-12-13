@@ -29,7 +29,7 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.font = [UIFont systemFontOfSize:14];
         _titleLabel.lineBreakMode=NSLineBreakByTruncatingMiddle;
-
+        
         _titleLabel.numberOfLines = 1;
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.font = [UIFont systemFontOfSize:14];
@@ -40,7 +40,7 @@
         
         [_sendBtn setImage:self.norImage forState:UIControlStateNormal];
         [_sendBtn setImage:self.selImage forState:UIControlStateSelected];
-
+        
         [_sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_sendBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [_sendBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -76,17 +76,14 @@
     self.titleLabel.text = model.name;
     self.detailLabel.text = [model.creatTime stringByAppendingString:[NSString stringWithFormat:@"   %@",model.fileSize]];
     self.sendBtn.selected = model.select;
-    
 }
 - (void)clickBtn:(UIButton *)btn
 {
-
-        btn.selected = !btn.selected;
-        self.model.select = btn.selected;
-        if (_Clickblock) {
-            _Clickblock(_model,btn);
-        }
-
+    btn.selected = !btn.selected;
+    self.model.select = btn.selected;
+    if (_Clickblock) {
+        _Clickblock(_model,btn);
+    }
 }
 - (void)layoutSubviews
 {

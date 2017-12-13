@@ -16,8 +16,9 @@
 #import "UIColor+CJColorCategory.h"
 #import "CJHttp.h"
 #import "Masonry.h"
-#define HomeFilePath [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CJFileCache1"]
-#define HSCachesDirectory2 [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CJFileCache2"]
+#import "NSBundle+YGFileBrowser.h"
+
+
 #define color01a  [UIColor colorWithRed:0.004 green:0.651 blue:0.996 alpha:1.000]
 
 
@@ -143,10 +144,10 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (state) {
                 case DownloadStateStart:
-                    [weakSelf.cancleBtn setImage:[UIImage imageNamed:@"pause_320"] forState:UIControlStateNormal];
+                    [weakSelf.cancleBtn setImage:[NSBundle yg_imageNamed:@"pause_320.png"] forState:UIControlStateNormal];
                     break;
                     case DownloadStateSuspended:
-                    [weakSelf.cancleBtn setImage:[UIImage imageNamed:@"Play_378"] forState:UIControlStateNormal];
+                    [weakSelf.cancleBtn setImage:[NSBundle yg_imageNamed:@"Play_378.png"] forState:UIControlStateNormal];
                     break;
                     case DownloadStateCompleted:
                 {              weakSelf.cancleBtn.hidden = YES;
@@ -156,7 +157,7 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
                     }
                 }   break;
                     case DownloadStateFailed:
-                    [weakSelf.cancleBtn setImage:[UIImage imageNamed:@"error_128"] forState:UIControlStateNormal];
+                    [weakSelf.cancleBtn setImage:[NSBundle yg_imageNamed:@"error_128.png"] forState:UIControlStateNormal];
                     break;
                 default:
                     break;
@@ -167,7 +168,7 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
 - (void)copyFileToCache
 {
 //  原始文件名
-    NSString *originName = [HSCachesDirectory2 stringByAppendingPathComponent:[_model.fileUrl md5String]];
+    NSString *originName = [YGFileCachesDirectory stringByAppendingPathComponent:[_model.fileUrl md5String]];
 //  目标文件
     NSString *destination = [HomeFilePath stringByAppendingPathComponent:_model.name];
     destination =  [CJFileTools checkFileName:destination];

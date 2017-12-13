@@ -32,13 +32,13 @@ iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
 
   s.source_files = 'YGFileBrowser/Classes/**/*.{h,m}'
   
-  s.resource     = 'YGFileBrowser/Assets/YGFileBrowser.bundle'
+  # s.resource     = 'YGFileBrowser/Assets/YGFileBrowser.bundle'
 
   # NSBundle *bundle = [NSBundle bundleForClass:<#ClassFromPodspec#>];
   # [UIImage imageWithContentsOfFile:[bundle pathForResource:@"PodTest.bundle/imageName@2x" ofType:@"png"]];
-  # s.resource_bundles = {
-    # 'YGFileBrowser' => ['YGFileBrowser/Assets/*.{png,jpeg,jpg}']
-  # }
+  s.resource_bundles = {
+    'YGFileBrowser' => ['YGFileBrowser/Assets/*.{png,jpeg,jpg}']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks    = 'Foundation', 'UIKit', 'QuickLook'

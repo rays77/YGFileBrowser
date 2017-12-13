@@ -8,6 +8,8 @@
 
 #import "CJFileObjModel.h"
 #import "UIImage+TYHSetting.h"
+#import "NSBundle+YGFileBrowser.h"
+
 static const UInt8 IMAGES_TYPES_COUNT = 8;
 static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg",@",JPG", @"jpeg", @"JPEG" ,@"gif", @"GIF"};
 
@@ -30,7 +32,6 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
     return self;
 }
 
-
 -(void)setFilePath:(NSString *)filePath {
     _filePath = filePath;
     _fileUrl = _filePath;
@@ -39,11 +40,11 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
     
     BOOL isDirectory = true;
     [fileMgr fileExistsAtPath: filePath isDirectory: &isDirectory];
-    self.image = [UIImage imageNamed: @"fielIcon"];
+    self.image = [NSBundle yg_imageNamed:@"fielIcon.png"];
     self.fileType = MKFileTypeUnknown;
     
     if(isDirectory){
-        self.image = [UIImage imageNamed: @"dirIcon"];
+        self.image = [NSBundle yg_imageNamed:@"dirIcon.png"];
         self.fileType = MKFileTypeDirectory;
     }else{
         
