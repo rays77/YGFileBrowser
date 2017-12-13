@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YGFileBrowser'
-  s.version          = '0.1.4'
+  s.version          = '0.1.5'
   s.summary          = 'iOS文件管理和预览.'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'YGFileBrowser/Classes/**/*.{h,m}'
-  
+
   s.resource     = 'YGFileBrowser/Assets/YGFileBrowser.bundle'
 
   # NSBundle *bundle = [NSBundle bundleForClass:<#ClassFromPodspec#>];
