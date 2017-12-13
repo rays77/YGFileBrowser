@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YGFileBrowser'
-  s.version          = '0.1.5'
+  s.version          = '0.1.6'
   s.summary          = 'iOS文件管理和预览.'
 
 # This description is used to generate tags and improve search results.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
+                       iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。
                        DESC
 
   s.homepage         = 'https://github.com/rays77/YGFileBrowser'
