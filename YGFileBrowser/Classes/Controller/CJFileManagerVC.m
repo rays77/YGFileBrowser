@@ -7,10 +7,6 @@
 //
 #import <Photos/Photos.h>
 
-static NSInteger MAXSelect = 5;
-static NSInteger MAXFILESIZE = 50000000;
-
-
 ///屏幕高度/宽度
 #define CJScreenWidth        [UIScreen mainScreen].bounds.size.width
 #define CJScreenHeight       [UIScreen mainScreen].bounds.size.height
@@ -31,7 +27,6 @@ CGFloat departmentH = 48;
 CGFloat toolBarHeight = 49;
 
 @interface CJFileManagerVC ()<UITableViewDelegate,UITableViewDataSource,TYHInternalAssetGridToolBarDelegate,CJDepartmentViewDelegate>
-
 
 @property (strong, nonatomic) VeFileDepartmentView *departmentView;//文件的类目视图
 @property (strong, nonatomic) VeFileManagerToolBar *assetGridToolBar;//底部发送的工具条
@@ -76,6 +71,33 @@ CGFloat toolBarHeight = 49;
     [self getHomeFilePath];
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.offsetY = 0;
+        self.maxSelect = NSIntegerMax;
+        self.maxFileSize = CGFLOAT_MAX;
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.offsetY = 0;
+        self.maxSelect = NSIntegerMax;
+        self.maxFileSize = CGFLOAT_MAX;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.offsetY = 0;
+        self.maxSelect = NSIntegerMax;
+        self.maxFileSize = CGFLOAT_MAX;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"文件默认存储的路径---%@",HomeFilePath);
@@ -86,7 +108,7 @@ CGFloat toolBarHeight = 49;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initNAV];
-
+    
     [self loadData];
     
     [self searchDocumentsForPath];
@@ -128,19 +150,19 @@ CGFloat toolBarHeight = 49;
                         
                         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
                         if (downloadFinined && result) {
-                            model.name = [NSString stringWithFormat:@"%ld.png",@(asset.creationDate.timeIntervalSince1970 * 1000).integerValue];
-                            model.image = result;
-                            model.fileData = UIImageJPEGRepresentation(result,0.5);
+//                            model.name = [NSString stringWithFormat:@"%ld.png",@(asset.creationDate.timeIntervalSince1970 * 1000).integerValue];
+//                            model.image = result;
+//                            model.fileData = UIImageJPEGRepresentation(result,0.5);
                             
                             //准确获取原图大小
                             [manager requestImageDataForAsset:asset options:imageOption resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
                                 BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
                                 if (downloadFinined && imageData) {
-                                    
-                                    
-                                    //                                    model.fileData = imageData;
+                                    model.filePath = [self getPHImageFileURLPath:[NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]]];
                                     model.fileSizefloat = imageData.length;
                                     model.fileSize = [self getBytesFromDataLength:model.fileSizefloat];
+                                    model.image = result;
+                                    model.fileData = UIImageJPEGRepresentation(result,0.5);
                                     [self.albumPic addObject:model];
                                 }
                             }];
@@ -150,6 +172,14 @@ CGFloat toolBarHeight = 49;
             }];
         });
     }
+}
+
+- (NSString *)getPHImageFileURLPath:(NSString *)path {
+    NSArray *pathList = [path componentsSeparatedByString:@"//"];
+    if (pathList.count > 1) {
+        return pathList[1];
+    }
+    return path;
 }
 
 - (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)size {
@@ -204,7 +234,7 @@ CGFloat toolBarHeight = 49;
                 [manager requestAVAssetForVideo:obj options:options resultHandler:^(AVAsset * asset, AVAudioMix * audioMix, NSDictionary * info) {
                     
                     NSArray *tracks = asset.tracks;
-                    //                    float estimatedSize = 0.0 ;
+                    
                     for (AVAssetTrack * track in tracks) {
                         float rate = ([track estimatedDataRate] / 8); // convert bits per second to bytes per second
                         float seconds = CMTimeGetSeconds([track timeRange].duration);
@@ -213,31 +243,16 @@ CGFloat toolBarHeight = 49;
                     
                     AVURLAsset *urlAsset = (AVURLAsset *)asset;
                     
-                    
                     model.fileSize = [NSString stringWithFormat:@"%.2lfM",model.fileSizefloat / 1024 / 1024];
-                    //                    model.fileUrl = [asset mj_keyValues][@"cacheKey"];
+                    
                     model.fileUrl =  [urlAsset.URL absoluteString];
                     model.name = [asset mj_keyValues][@"propertyListForProxy"][@"name"];
                     
-                    //                model.fileSize = [[asset mj_keyValues][@"propertyListForProxy"][@"moop"] length];
                     model.fileData = [asset mj_keyValues][@"propertyListForProxy"][@"moop"];
-                    //                    model.fileData = [NSData dataWithContentsOfURL:urlAsset.URL];
                     [self.videoArray addObject:model];
                 }];
                 
             }];
-            
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //
-            //                NSArray *results =[self.videoArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            //                    CJFileObjModel *model1 = obj1;
-            //                    CJFileObjModel *model2 = obj2;
-            //                    NSComparisonResult result = [model1.creatTime compare:model2.creatTime];
-            //                    return result == NSOrderedAscending;
-            //                }];
-            //                [self.videoArray removeAllObjects];
-            //                [self.videoArray addObjectsFromArray:results];
-            //            });
         });
     }
 }
@@ -247,30 +262,6 @@ CGFloat toolBarHeight = 49;
         _depatmentArray = @[@"文档",@"视频",@"相册",@"音乐",@"其他"];
     }
     return _depatmentArray;
-}
-
-- (UITableView *)tabvlew
-{
-    if (_tabvlew == nil) {
-        CGRect frame = CGRectMake(0, departmentH + 10 + 64, CJScreenWidth, CJScreenHeight  - toolBarHeight - departmentH - 10 - 64);
-        _tabvlew = [[UITableView alloc]   initWithFrame:frame style:UITableViewStylePlain];
-        _tabvlew.tableFooterView = [[UIView alloc] init];
-        _tabvlew.delegate = self;
-        _tabvlew.dataSource = self;
-        _tabvlew.bounces = NO;
-        [self.view addSubview:self.tabvlew];
-        
-    }
-    return _tabvlew;
-}
-
-- (void)setupToolbar
-{
-    VeFileManagerToolBar *toolbar = [[VeFileManagerToolBar alloc] initWithFrame:CGRectMake(0, CJScreenHeight - toolBarHeight, CJScreenWidth, toolBarHeight)];
-    toolbar.delegate = self;
-    _assetGridToolBar = toolbar;
-    _assetGridToolBar.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:_assetGridToolBar];
 }
 
 - (NSMutableArray *)selectedItems
@@ -284,13 +275,34 @@ CGFloat toolBarHeight = 49;
 - (VeFileDepartmentView *)departmentView
 {
     if (_departmentView == nil) {
-        CGRect frame = CGRectMake(0, 64, CJScreenWidth, departmentH);
+        CGRect frame = CGRectMake(0, self.offsetY, CJScreenWidth, departmentH);
         _departmentView = [[VeFileDepartmentView alloc] initWithParts:self.depatmentArray withFrame:frame];
         _departmentView.cj_delegate = self;
         [self.view addSubview:_departmentView];
     }
     return _departmentView;
 }
+- (UITableView *)tabvlew
+{
+    if (_tabvlew == nil) {
+        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.departmentView.frame), CJScreenWidth, CJScreenHeight - toolBarHeight - departmentH-self.navigationController.navigationBar.bounds.size.height-[UIApplication sharedApplication].statusBarFrame.size.height);
+        _tabvlew = [[UITableView alloc]   initWithFrame:frame style:UITableViewStylePlain];
+        _tabvlew.tableFooterView = [[UIView alloc] init];
+        _tabvlew.delegate = self;
+        _tabvlew.dataSource = self;
+        [self.view addSubview:self.tabvlew];
+    }
+    return _tabvlew;
+}
+- (void)setupToolbar
+{
+    VeFileManagerToolBar *toolbar = [[VeFileManagerToolBar alloc] initWithFrame:CGRectMake(0, CJScreenHeight - toolBarHeight, CJScreenWidth, toolBarHeight)];
+    toolbar.delegate = self;
+    _assetGridToolBar = toolbar;
+    _assetGridToolBar.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:_assetGridToolBar];
+}
+
 - (void)initNAV {
     self.title = @"本地文件";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
@@ -301,24 +313,6 @@ CGFloat toolBarHeight = 49;
     [_dataSource removeAllObjects];
     self.originFileArray = @[].mutableCopy;
     self.view.backgroundColor = [UIColor whiteColor];
-    //默认加入几个文件
-//    NSString *path1 = [[NSBundle mainBundle] pathForResource:@"宋冬野 - 董小姐" ofType:@"mp3"];
-//    NSString *path2 = [[NSBundle mainBundle] pathForResource:@"IMG_4143" ofType:@"PNG"];
-//    NSString *path3 = [[NSBundle mainBundle] pathForResource:@"angle" ofType:@"jpg"];
-//    NSString *path4 = [[NSBundle mainBundle] pathForResource:@"he is a pirate" ofType:@"mp3"];
-    
-//    CJFileObjModel *mode1 = [[CJFileObjModel alloc] initWithFilePath:path1];
-//    CJFileObjModel *mode2 = [[CJFileObjModel alloc] initWithFilePath:path2];
-//    CJFileObjModel *mode2 = [[CJFileObjModel alloc] init];
-//    mode2.fileUrl = @"http://172.20.248.103:6666/cooperate/m3/file/viewdms.do?fileId=937998110767190016";
-//    mode2.name = @"937998110767190016.pdf";
-//    mode2.fileType = MKFileTypeTxt;
-//    CJFileObjModel *mode3 = [[CJFileObjModel alloc] initWithFilePath:path3];
-//    CJFileObjModel *mode4 = [[CJFileObjModel alloc] initWithFilePath:path4];
-    
-//    [self.originFileArray addObjectsFromArray:@[mode1,mode2,mode3,mode4]];
-//    [self.originFileArray addObjectsFromArray:@[mode2]];
-    
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //遍历HomeFilePath文件夹下的子文件
@@ -364,15 +358,13 @@ CGFloat toolBarHeight = 49;
     CJFileObjModel *actualFile = [_dataSource objectAtIndex:indexPath.row];
     cell.model = actualFile;
     __weak typeof(self) weakSelf = self;
-    /*
-     cell☑️回调
-     */
     
+    // cell回调
     cell.Clickblock = ^(CJFileObjModel *model,UIButton *btn){
-        if (weakSelf.selectedItems.count>= MAXSelect && btn.selected) {
+        if (weakSelf.selectedItems.count>= weakSelf.maxSelect && btn.selected) {
             btn.selected =  NO;
             model.select = btn.selected;
-            [weakSelf.view makeToast:@"最多支持5个文件选择" duration:0.5 position:CSToastPositionCenter];
+            [weakSelf.view makeToast:[NSString stringWithFormat:@"最多支持%ld个文件选择", weakSelf.maxSelect] duration:1.0 position:CSToastPositionCenter];
             return ;
         }
         if ([weakSelf checkFileSize:model]) {
@@ -384,7 +376,7 @@ CGFloat toolBarHeight = 49;
                 weakSelf.assetGridToolBar.selectedItems = weakSelf.selectedItems;
             }
         }else{
-            [weakSelf.view makeToast:@"暂时不支持超过50MB的文件" duration:0.5 position:CSToastPositionCenter];
+            [weakSelf.view makeToast:[NSString stringWithFormat:@"暂时不支持超过%.1fMB的文件", weakSelf.maxFileSize/1024/1024] duration:1.0 position:CSToastPositionCenter];
             btn.selected =  NO;
             model.select = btn.selected;
         }
@@ -397,7 +389,7 @@ CGFloat toolBarHeight = 49;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     CJFileObjModel *actualFile = [_dataSource objectAtIndex:indexPath.row];
-    NSString *cachePath =actualFile.filePath;
+    NSString *cachePath = actualFile.filePath;
     NSLog(@"调用文件查看控制器%@---type %zd, %@",actualFile.name,actualFile.fileType,cachePath);
     CJFlieLookUpVC *vc = [[CJFlieLookUpVC alloc] initWithFileModel:actualFile];
     [self.navigationController pushViewController:vc animated:YES];
@@ -530,12 +522,11 @@ CGFloat toolBarHeight = 49;
 
 - (void)didClickSenderButtonInAssetGridToolBar:(VeFileManagerToolBar *)internalAssetGridToolBar
 {
-    NSLog(@"SenderButtonInAsset----%@",self.selectedItems);
-    [self dismissViewControllerAnimated:YES completion:nil];
-
     if ([self.fileSelectVcDelegate respondsToSelector:@selector(fileViewControlerSelected:)]) {
         [self.fileSelectVcDelegate fileViewControlerSelected:self.selectedItems];
     }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)getHomeFilePath
@@ -549,7 +540,7 @@ CGFloat toolBarHeight = 49;
 }
 - (BOOL)checkFileSize:(CJFileObjModel *)model
 {
-    if (model.fileSizefloat >= MAXFILESIZE) {
+    if (model.fileSizefloat >= self.maxFileSize) {
         return NO;
     }
     return YES;

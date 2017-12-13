@@ -49,7 +49,7 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
     }else{
         
         NSArray *imageTypesArray = [NSArray arrayWithObjects: IMAGES_TYPES count: IMAGES_TYPES_COUNT];
-     
+        
         if([imageTypesArray containsObject: [filePath pathExtension]]){
             self.image = [UIImage imageWithContentsOfFile: filePath];
             self.fileType = MKFileTypeUnknown;
@@ -57,44 +57,44 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
             self.image =[UIImage imageWithFileModel:self];
         }
         
-    
-    NSError *error = nil;
-    NSDictionary *fileAttributes = [fileMgr attributesOfItemAtPath:filePath error:&error];
-    
-    if (fileAttributes != nil) {
-        NSNumber *fileSize = [fileAttributes objectForKey:NSFileSize];
-        NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
-        NSDate *fileCreateDate = [fileAttributes objectForKey:NSFileCreationDate];
-        if (fileSize) {
-            CGFloat size = [fileSize unsignedLongLongValue];
-            self.fileSizefloat = size;
-            NSString *sizestr = [NSString stringWithFormat:@"%qi",[fileSize unsignedLongLongValue]];
-//            NSLog(@"File size: %@\n",fileSize);
-            if (sizestr.length <=3) {
-                self.fileSize = [NSString stringWithFormat:@"%.1f B",size];
-            } else if(sizestr.length>3 && sizestr.length<7){
-                self.fileSize = [NSString stringWithFormat:@"%.1f KB",size/1000.0];
-            }else{
-                self.fileSize = [NSString stringWithFormat:@"%.1f M",size/(1000.0 * 1000)];
+        
+        NSError *error = nil;
+        NSDictionary *fileAttributes = [fileMgr attributesOfItemAtPath:filePath error:&error];
+        
+        if (fileAttributes != nil) {
+            NSNumber *fileSize = [fileAttributes objectForKey:NSFileSize];
+            NSDate *fileModDate = [fileAttributes objectForKey:NSFileModificationDate];
+            NSDate *fileCreateDate = [fileAttributes objectForKey:NSFileCreationDate];
+            if (fileSize) {
+                CGFloat size = [fileSize unsignedLongLongValue];
+                self.fileSizefloat = size;
+                NSString *sizestr = [NSString stringWithFormat:@"%qi",[fileSize unsignedLongLongValue]];
+                //            NSLog(@"File size: %@\n",fileSize);
+                if (sizestr.length <=3) {
+                    self.fileSize = [NSString stringWithFormat:@"%.1f B",size];
+                } else if(sizestr.length>3 && sizestr.length<7){
+                    self.fileSize = [NSString stringWithFormat:@"%.1f KB",size/1000.0];
+                }else{
+                    self.fileSize = [NSString stringWithFormat:@"%.1f M",size/(1000.0 * 1000)];
+                }
+            }
+            
+            if (fileModDate) {
+                //用于格式化NSDate对象
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                //设置格式：zzz表示时区
+                [dateFormatter setDateFormat:@"MM-dd HH:mm:ss"];
+                //NSDate转NSString
+                self.creatTime = [dateFormatter stringFromDate:fileModDate];
+            }
+            if (fileCreateDate) {
+                //            NSLog(@"create date:%@\n", fileModDate);
             }
         }
-  
-        if (fileModDate) {
-            //用于格式化NSDate对象
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            //设置格式：zzz表示时区
-            [dateFormatter setDateFormat:@"MM-dd HH:mm:ss"];
-            //NSDate转NSString
-            self.creatTime = [dateFormatter stringFromDate:fileModDate];
-        }
-        if (fileCreateDate) {
-//            NSLog(@"create date:%@\n", fileModDate);
+        else {
+            //        NSLog(@"Path (%@) is invalid.", filePath);
         }
     }
-    else {
-//        NSLog(@"Path (%@) is invalid.", filePath);
-    }
-}
 }
 
 

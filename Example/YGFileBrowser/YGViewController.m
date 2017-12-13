@@ -7,8 +7,9 @@
 //
 
 #import "YGViewController.h"
+#import "CJFileManagerVC.h"
 
-@interface YGViewController ()
+@interface YGViewController () <FileSelectVcDelegate>
 
 @end
 
@@ -18,6 +19,22 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (IBAction)file:(UIButton *)sender {
+    CJFileManagerVC *vc = [[CJFileManagerVC alloc] init];
+    vc.fileSelectVcDelegate = self;
+    vc.offsetY = 64;
+    vc.maxSelect = 5;
+    vc.maxFileSize = 1572864;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - FileSelectVcDelegate
+
+- (void)fileViewControlerSelected:(NSArray<CJFileObjModel *> *)fileModels
+{
+    NSLog(@"fileModels----%@", fileModels);
 }
 
 - (void)didReceiveMemoryWarning
