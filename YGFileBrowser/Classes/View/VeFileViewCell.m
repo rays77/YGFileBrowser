@@ -27,12 +27,12 @@
     if (self) {
         _headImagV = [[UIImageView alloc] init];
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+        _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.lineBreakMode=NSLineBreakByTruncatingMiddle;
         
         _titleLabel.numberOfLines = 1;
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:14];
+        _detailLabel.font = [UIFont systemFontOfSize:15];
         _detailLabel.numberOfLines = 1;
         _detailLabel.lineBreakMode=NSLineBreakByTruncatingMiddle;
         
@@ -76,6 +76,7 @@
     self.titleLabel.text = model.name;
     self.detailLabel.text = [model.creatTime stringByAppendingString:[NSString stringWithFormat:@"   %@",model.fileSize]];
     self.sendBtn.selected = model.select;
+    self.sendBtn.hidden = !_model.allowSelect;
 }
 - (void)clickBtn:(UIButton *)btn
 {
@@ -99,12 +100,12 @@
     }];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImagV.mas_right).offset(10);
-        make.centerY.equalTo(self.mas_centerY).offset(-10);
+        make.centerY.equalTo(self.mas_centerY).offset(-13);
         make.right.equalTo(self.sendBtn.mas_left).offset(-margin);
     }];
     [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImagV.mas_right).offset(10);
-        make.centerY.equalTo(self.mas_centerY).offset(10);
+        make.centerY.equalTo(self.mas_centerY).offset(13);
         make.right.equalTo(self.sendBtn.mas_left).offset(-margin);
     }];
     [_sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {

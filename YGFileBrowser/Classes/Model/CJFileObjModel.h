@@ -26,10 +26,11 @@ typedef NS_ENUM(NSInteger, MKFileType) {
     
     MKFileTypeDirectory = 5, //目录
 
+    MKFileTypeSandboxImage = 6, //沙盒图片
 };
 @interface CJFileObjModel : NSObject
 
--(instancetype)initWithFilePath:(NSString *)filePath;
+-(instancetype)initWithFilePath:(NSString *)filePath typeLimits:(NSArray *)typeLimits;
 
 //文件路径
 @property (copy, nonatomic) NSString *filePath;
@@ -48,6 +49,8 @@ typedef NS_ENUM(NSInteger, MKFileType) {
 @property (strong, nonatomic) UIImage *image;
 
 @property (assign, nonatomic) MKFileType fileType;
+@property (nonatomic,strong) NSArray *typeLimits;//类型限制
+@property (nonatomic,assign) BOOL allowSelect;//是否允许被选择
 @property (nonatomic,assign) BOOL select;//是否被选中
 
 //

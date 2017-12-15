@@ -9,9 +9,7 @@
 #import "CJFileObjModel.h"
 #import "UIImage+TYHSetting.h"
 #import "NSBundle+YGFileBrowser.h"
-
-static const UInt8 IMAGES_TYPES_COUNT = 8;
-static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg",@",JPG", @"jpeg", @"JPEG" ,@"gif", @"GIF"};
+#import "YGFileBrowser.h"
 
 @implementation CJFileObjModel
 {
@@ -25,8 +23,9 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
     return self;
 }
 
--(instancetype)initWithFilePath:(NSString *)filePath {
+-(instancetype)initWithFilePath:(NSString *)filePath typeLimits:(NSArray *)typeLimits {
     if(self = [self init]){
+        self.typeLimits = typeLimits;
         self.filePath = filePath;
     }
     return self;
@@ -36,15 +35,18 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
     _filePath = filePath;
     _fileUrl = _filePath;
     
+    // 判断文件类型是否允许cell勾选，包含就不允许勾选
+    self.allowSelect = ![self.typeLimits containsObject:[filePath pathExtension]];
+    
     self.name = [filePath lastPathComponent];
     
     BOOL isDirectory = true;
     [fileMgr fileExistsAtPath: filePath isDirectory: &isDirectory];
-    self.image = [NSBundle yg_imageNamed:@"fielIcon.png"];
+    self.image = [NSBundle yg_imageNamed:@"未知问题-本机@2x.png"];
     self.fileType = MKFileTypeUnknown;
     
     if(isDirectory){
-        self.image = [NSBundle yg_imageNamed:@"dirIcon.png"];
+        self.image = [NSBundle yg_imageNamed:@"未知问题-本机@2x.png"];
         self.fileType = MKFileTypeDirectory;
     }else{
         
@@ -54,9 +56,8 @@ static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg
             self.image = [UIImage imageWithContentsOfFile: filePath];
             self.fileType = MKFileTypeUnknown;
         }else {
-            self.image =[UIImage imageWithFileModel:self];
+            self.image = [UIImage imageWithFileModel:self];
         }
-        
         
         NSError *error = nil;
         NSDictionary *fileAttributes = [fileMgr attributesOfItemAtPath:filePath error:&error];

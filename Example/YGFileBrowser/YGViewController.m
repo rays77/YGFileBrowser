@@ -7,7 +7,7 @@
 //
 
 #import "YGViewController.h"
-#import "CJFileManagerVC.h"
+#import "YGFileBrowserController.h"
 
 @interface YGViewController () <FileSelectVcDelegate>
 
@@ -15,15 +15,14 @@
 
 @implementation YGViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (IBAction)file:(UIButton *)sender {
-    CJFileManagerVC *vc = [[CJFileManagerVC alloc] init];
+    YGFileBrowserController *vc = [[YGFileBrowserController alloc] init];
     vc.fileSelectVcDelegate = self;
+    vc.typeLimits = @[@"png", @"PNG", @"jpg", @"JPG", @"jpeg", @"JPEG", @"docx"];
     vc.offsetY = 64;
     vc.maxSelect = 5;
     vc.maxFileSize = 1572864;
@@ -35,12 +34,6 @@
 - (void)fileViewControlerSelected:(NSArray<CJFileObjModel *> *)fileModels
 {
     NSLog(@"fileModels----%@", fileModels);
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

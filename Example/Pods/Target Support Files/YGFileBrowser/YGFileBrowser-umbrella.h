@@ -10,8 +10,11 @@
 #endif
 #endif
 
-#import "CJFileManagerVC.h"
 #import "CJFlieLookUpVC.h"
+#import "YGFileAlbumController.h"
+#import "YGFileBrowserController.h"
+#import "YGFileManagerController.h"
+#import "YGFileVideoController.h"
 #import "CJFileObjModel.h"
 #import "CJHttp.h"
 #import "CJFileTools.h"
@@ -23,11 +26,14 @@
 #import "UIImage+TYHSetting.h"
 #import "UIView+CJToast.h"
 #import "UIView+LCCategory.h"
+#import "YGFileBrowser.h"
+#import "YGFileTool.h"
 #import "CJDownFileView.h"
 #import "VeFileDepartmentView.h"
 #import "VeFileManagerToolBar.h"
 #import "VeFileViewCell.h"
 #import "VeUnOpenFileView.h"
+#import "YGFileTableView.h"
 
 FOUNDATION_EXPORT double YGFileBrowserVersionNumber;
 FOUNDATION_EXPORT const unsigned char YGFileBrowserVersionString[];

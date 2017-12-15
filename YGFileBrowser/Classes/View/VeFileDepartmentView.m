@@ -34,7 +34,7 @@
 
 - (UIView *)indicatorView {
     if (!_indicatorView) {
-        _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0,46, DepartmentWidth, 2)];
+        _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0,44, 36, 4)];
         _indicatorView.backgroundColor = [UIColor colorWithHexString:@"22aeff"];
     }
     return _indicatorView;
@@ -54,7 +54,7 @@
     btn.selected = YES;
     _selectedIndex = selectedIndex;
     [UIView animateWithDuration:0.15 animations:^{
-        self.indicatorView.frame = CGRectMake(CGRectGetMinX(btn.frame) + 1, (46), CGRectGetWidth(btn.frame), 2);
+        self.indicatorView.frame = CGRectMake(CGRectGetMidX(btn.frame)-18, 44, 36, 4);
     } completion:^(BOOL finished) {
         if (finished) {
             if (self.selectedIndex == 0) {
@@ -118,10 +118,6 @@
         [self.btnArr addObject:partBtn];
         [self addSubview:partBtn];
         
-        if (i == 0) {
-            partBtn.selected = YES;
-        }
-        
         CGFloat buttonWidth = size.width > DepartmentWidth ? size.width + 2: DepartmentWidth;
         totalWidth += buttonWidth;
         
@@ -138,6 +134,11 @@
             }
         }];
         lastBtn = partBtn;
+        
+        if (i == 0) {
+            partBtn.selected = YES;
+            self.indicatorView.frame = CGRectMake(buttonWidth/2-18, 44, 36, 4);
+        }
     }
     
     [self addSubview:self.indicatorView];
@@ -174,6 +175,7 @@
 
 #pragma mark - Actions
 - (void)clickDepartmentButton:(UIButton *)sender {
+    if (self.selectedIndex == sender.tag - 100) return;
     self.selectedIndex = sender.tag - 100;
     if ([self.cj_delegate respondsToSelector:@selector(didScrollToIndex:withSelectMode:)]) {
         [self.cj_delegate didScrollToIndex:self.selectedIndex withSelectMode:self.selectMode];

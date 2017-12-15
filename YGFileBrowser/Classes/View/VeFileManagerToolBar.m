@@ -37,7 +37,7 @@
 {
     if (!_originalLabel) {
         UILabel *originalLabel = [[UILabel alloc] init];
-        [originalLabel setFont:[UIFont systemFontOfSize:13]];
+        [originalLabel setFont:[UIFont systemFontOfSize:14]];
         [originalLabel setTextColor:[UIColor colorWithHexString:@"666666"]];
         _originalLabel = originalLabel;
         [self addSubview:_originalLabel];
@@ -81,7 +81,7 @@
 
 - (void)setSelectedItems:(NSMutableArray *)selectedItems
 {
-     _selectedItems = selectedItems;
+    _selectedItems = selectedItems;
     
     // 按钮能否点击
     self.senderButton.enabled = selectedItems.count > 0 ? YES : NO;
@@ -94,35 +94,30 @@
 // 计算所有选中文件的大小
 - (void)calculateAllselectedItemsBytes
 {
-        __block NSInteger dataLength = 0;
-        __block NSInteger lastSelectedItem = 0;
-        NSString *bytes = nil;
-
-        for (CJFileObjModel *fileObj in self.selectedItems) {
-            lastSelectedItem++;
-            dataLength += fileObj.fileSizefloat;
-            
+    __block NSInteger dataLength = 0;
+    __block NSInteger lastSelectedItem = 0;
+    NSString *bytes = nil;
+    
+    for (CJFileObjModel *fileObj in self.selectedItems) {
+        lastSelectedItem++;
+        dataLength += fileObj.fileSizefloat;
+    }
+    if (lastSelectedItem == self.selectedItems.count) {
+        //                NSString *bytes = nil;
+        if (dataLength >= 0.1 * (1024 * 1024)) {
+            bytes = [NSString stringWithFormat:@"%0.1fM",dataLength/1024/1024.0];
+        } else if (dataLength >= 1024) {
+            bytes = [NSString stringWithFormat:@"%0.0fK",dataLength/1024.0];
+        } else {
+            bytes = [NSString stringWithFormat:@"%zdB",dataLength];
         }
-        if (lastSelectedItem == self.selectedItems.count) {
-            //                NSString *bytes = nil;
-            if (dataLength >= 0.1 * (1024 * 1024)) {
-                bytes = [NSString stringWithFormat:@"%0.1fM",dataLength/1024/1024.0];
-            } else if (dataLength >= 1024) {
-                bytes = [NSString stringWithFormat:@"%0.0fK",dataLength/1024.0];
-            } else {
-                bytes = [NSString stringWithFormat:@"%zdB",dataLength];
-            }
-            
-            
-        }
+    }
     if ([bytes isEqualToString:@"0B"]) {
         self.originalLabel.hidden = YES;
     }else{
         self.originalLabel.hidden = NO;
     }
-        self.originalLabel.text = [NSString stringWithFormat:@"总文件大小约(%@)", bytes];
-
-
+    self.originalLabel.text = [NSString stringWithFormat:@"总文件大小约(%@)", bytes];
 }
 
 #pragma mark - layoutSubviews

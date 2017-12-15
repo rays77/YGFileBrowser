@@ -60,6 +60,10 @@
 		<data>
 		Uo8obEKDb0UiXPSVZoN4/TkA5vY=
 		</data>
+		<key>null数据.png</key>
+		<data>
+		wdDoYP1rL0uMUmad4l8hbLuKkL8=
+		</data>
 		<key>pause_320.png</key>
 		<data>
 		wp7oaF6WNObGUfZo3LSGAGobmEk=
@@ -387,6 +391,17 @@
 			<key>hash2</key>
 			<data>
 			yXpPC0tqjzBoYJzLsNa7rpeflt/ciGxFL6CNsM/f7xc=
+			</data>
+		</dict>
+		<key>null数据.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wdDoYP1rL0uMUmad4l8hbLuKkL8=
+			</data>
+			<key>hash2</key>
+			<data>
+			hebTcK0ejgeT/nr+ralS843PbMsKJhTbJj5ViWKf5MA=
 			</data>
 		</dict>
 		<key>pause_320.png</key>

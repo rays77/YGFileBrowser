@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class CJFileObjModel;
+
 @interface VeFileViewCell : UITableViewCell
+
 @property (nonatomic,strong)CJFileObjModel *model;
 @property (nonatomic,copy) void (^Clickblock)(CJFileObjModel *model,UIButton *btn);
 
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+
 @end

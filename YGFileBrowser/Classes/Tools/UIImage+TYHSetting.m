@@ -9,18 +9,7 @@
 #import "UIImage+TYHSetting.h"
 #import "CJFileObjModel.h"
 #import "NSBundle+YGFileBrowser.h"
-
-static const UInt8 IMAGES_TYPES_COUNT = 8;
-static const UInt8 TEXT_TYPES_COUNT = 14;
-static const UInt8 VIOCEVIDIO_COUNT = 14;
-static const UInt8 Application_count = 4;
-static const UInt8 AV_COUNT = 12;
-
-static const NSString *IMAGES_TYPES[IMAGES_TYPES_COUNT] = {@"png", @"PNG", @"jpg",@",JPG", @"jpeg", @"JPEG" ,@"gif", @"GIF"};
-static const NSString *TEXT_TYPES[TEXT_TYPES_COUNT] = {@"txt", @"TXT", @"doc",@"DOC",@"docx",@"DOCX",@"xls",@"XLS", @"xlsx",@"XLSX", @"ppt",@"PPT",@"pdf",@"PDF"};
-static const NSString *VIOCEVIDIO_TYPES[VIOCEVIDIO_COUNT] = {@"mp3",@"MP3",@"wav",@"WAV",@"CD",@"cd",@"ogg",@"OGG",@"midi",@"MIDE",@"vqf",@"VQF",@"amr",@"AMR"};
-static const NSString *AV_TYPES[AV_COUNT] = {@"asf",@"ASF",@"wma",@"WMA",@"rm",@"RM",@"rmvb",@"RMVB",@"avi",@"AVI",@"mkv",@"MKV"};
-static const NSString *Application_types[Application_count] = {@"apk",@"APK",@"ipa",@"IPA"};
+#import "YGFileBrowser.h"
 
 @implementation UIImage (TYHSetting)
 
