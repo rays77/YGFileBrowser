@@ -28,7 +28,9 @@
 
 - (void)setDataItems:(NSMutableArray *)dataItems {
     _dataItems = dataItems;
-    [self reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self reloadData];
+    });
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -64,7 +66,8 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    CJFileObjModel *model = [self.dataItems objectAtIndex:indexPath.row];
+    return model.allowEdite;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

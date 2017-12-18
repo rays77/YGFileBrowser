@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CJFileObjModel;
+#import "CJFileObjModel.h"
 
 @protocol FileSelectVcDelegate <NSObject>
 
@@ -22,6 +22,8 @@
 @property (nonatomic,weak) _Nullable id <FileSelectVcDelegate> fileSelectVcDelegate;
 /// 文件选择限制，默认无限制，如：[@"png", @"docx"]
 @property (nonatomic,strong) NSArray * _Nullable typeLimits; /**< 文件选择限制，默认无限制，如：[@"png", @"docx"] */
+/// 减去导航高度
+@property (nonatomic,assign) BOOL minusNavHeight; /**< 减去导航高度 */
 /// 整体向下偏移，默认0
 @property (nonatomic,assign) CGFloat offsetY; /**< 整体向下偏移，默认0 */
 /// 文件选择的最大个数，默认无限制

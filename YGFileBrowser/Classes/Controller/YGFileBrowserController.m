@@ -15,7 +15,6 @@
 #import "VeFileDepartmentView.h"
 #import "UIView+LCCategory.h"
 #import "UIView+CJToast.h"
-#import "CJFileObjModel.h"
 #import "YGFileBrowser.h"
 #import "YGFileTool.h"
 
@@ -99,6 +98,7 @@ CGFloat toolBarHeight = 49;
     
     for(NSString *str in subPathsArray){
         CJFileObjModel *object = [[CJFileObjModel alloc] initWithFilePath:[NSString stringWithFormat:@"%@/%@",HomeFilePath, str] typeLimits:self.typeLimits];
+        object.allowEdite = YES;
         [self.originFileArray addObject: object];
     }
 }
@@ -240,7 +240,8 @@ CGFloat toolBarHeight = 49;
 - (VeFileManagerToolBar *)assetGridToolBar
 {
     if (_assetGridToolBar == nil) {
-        _assetGridToolBar = [[VeFileManagerToolBar alloc] initWithFrame:CGRectMake(0, CJScreenHeight-toolBarHeight, CJScreenWidth, toolBarHeight)];
+        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.docVC.view.frame) - (self.minusNavHeight ? ([UIApplication sharedApplication].statusBarFrame.size.height-self.navigationController.navigationBar.frame.size.height) : 0), CJScreenWidth, toolBarHeight+(Is_iPhoneX?34:0));
+        _assetGridToolBar = [[VeFileManagerToolBar alloc] initWithFrame:frame];
         _assetGridToolBar.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
         _assetGridToolBar.delegate = self;
         [self.view addSubview:_assetGridToolBar];
@@ -254,7 +255,7 @@ CGFloat toolBarHeight = 49;
         _docVC.typeLimits = self.typeLimits;
         [self addChildViewController:_docVC];
         [_docVC didMoveToParentViewController:self];
-        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.departmentView.frame), CJScreenWidth, CJScreenHeight - departmentH - toolBarHeight - self.navigationController.navigationBar.bounds.size.height-[UIApplication sharedApplication].statusBarFrame.size.height);
+        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.departmentView.frame), CJScreenWidth, CJScreenHeight-CGRectGetMaxY(self.departmentView.frame)-toolBarHeight-(Is_iPhoneX?34:0));
         _docVC.view.frame = frame;
         _docVC.fileTableViewDelegate = self;
         [self.view addSubview:_docVC.view];

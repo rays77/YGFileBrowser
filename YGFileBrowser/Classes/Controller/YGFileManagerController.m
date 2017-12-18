@@ -115,13 +115,15 @@
 }
 
 - (void)nullData {
-    if (self.dataItems.count <= 0) {
-        self.nullTitleLbl.text = @"该分类没有文件";
-        self.nullView.hidden = NO;
-    } else {
-        _nullTitleLbl.text = @"正在加载文件...";
-        self.nullView.hidden = YES;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.dataItems.count <= 0) {
+            self.nullTitleLbl.text = @"该分类没有文件";
+            self.nullView.hidden = NO;
+        } else {
+            _nullTitleLbl.text = @"正在加载文件...";
+            self.nullView.hidden = YES;
+        }
+    });
 }
 
 - (void)reloadData {

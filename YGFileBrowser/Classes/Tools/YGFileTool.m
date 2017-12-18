@@ -20,7 +20,7 @@
     }else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            PHFetchOptions *option = [PHFetchOptions new];
+            PHFetchOptions *option = [[PHFetchOptions alloc] init];
             option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
             //根据图片的创建时间升序排列
             PHFetchResult *imageResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:option];
@@ -39,12 +39,12 @@
                     PHAsset *asset = obj;
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                     [dateFormatter setDateFormat:@"YY-MM-dd HH:mm:ss"];
-                    CJFileObjModel *model = [CJFileObjModel new];
+                    CJFileObjModel *model = [[CJFileObjModel alloc] init];
                     model.typeLimits = typeLimits;
                     model.creatTime = [dateFormatter stringFromDate:asset.creationDate];
                     
                     //请求图片
-                    PHImageRequestOptions *imageOption = [PHImageRequestOptions new];
+                    PHImageRequestOptions *imageOption = [[PHImageRequestOptions alloc] init];
                     imageOption.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
                     imageOption.resizeMode = PHImageRequestOptionsResizeModeFast;
                     
@@ -57,11 +57,13 @@
                             [manager requestImageDataForAsset:asset options:imageOption resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
                                 BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
                                 if (downloadFinined && imageData) {
-                                    model.filePath = [self getPHImageFileURLPath:[NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]]];
+//                                    model.filePath = [NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]];
                                     model.fileSizefloat = imageData.length;
                                     model.fileSize = [self getBytesFromDataLength:model.fileSizefloat];
                                     model.image = result;
                                     model.fileData = UIImageJPEGRepresentation(result,0.5);
+                                    model.name = [[NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]] lastPathComponent];
+                                    model.allowEdite = NO;
 //                                    [self.albumPic addObject:model];
                                     
                                     // 提取数据
@@ -91,12 +93,12 @@
     else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             //这里用PHAsset来获取视频数据 ALAsset显得很无力了。。。
-            PHFetchOptions *option = [PHFetchOptions new];
+            PHFetchOptions *option = [[PHFetchOptions alloc] init];
             option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
             PHFetchResult *voideResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:option];
             PHImageManager *manager = [PHImageManager defaultManager];
             // 视频请求对象
-            PHVideoRequestOptions *options = [PHVideoRequestOptions new];
+            PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
             options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
             
             if ([voideResult count] <= 0) {
@@ -108,7 +110,7 @@
             [voideResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"YY-MM-dd HH:mm:ss"];
-                CJFileObjModel *model = [CJFileObjModel new];
+                CJFileObjModel *model = [[CJFileObjModel alloc] init];
                 model.typeLimits = typeLimits;
                 model.creatTime = [dateFormatter stringFromDate:obj.creationDate];
                 
@@ -125,14 +127,17 @@
                         model.fileSizefloat += seconds * rate;
                     }
                     
-                    AVURLAsset *urlAsset = (AVURLAsset *)asset;
+//                    AVURLAsset *urlAsset = (AVURLAsset *)asset;
+//                    model.fileUrl =  [urlAsset.URL absoluteString];
                     
                     model.fileSize = [NSString stringWithFormat:@"%.2lfM",model.fileSizefloat / 1024 / 1024];
                     
-                    model.fileUrl =  [urlAsset.URL absoluteString];
                     model.name = [asset mj_keyValues][@"propertyListForProxy"][@"name"];
                     
                     model.fileData = [asset mj_keyValues][@"propertyListForProxy"][@"moop"];
+                    
+                    model.allowEdite = NO;
+                    
 //                    [self.videoArray addObject:model];
                     
                     // 提取数据

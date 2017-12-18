@@ -11,8 +11,6 @@
 
 @interface YGFileAlbumController ()
 
-@property (nonatomic, assign) BOOL isCompleted;
-
 @end
 
 @implementation YGFileAlbumController
@@ -20,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
+    [self loadData];
 }
 
 - (void)loadData {
@@ -29,16 +28,8 @@
                               extract:^(CJFileObjModel *model) {
                                   [list addObject:model];
                               } completed:^{
-                                  self.isCompleted = YES;
                                   self.dataItems = list;
                               }];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (self.dataItems.count <= 0 && !self.isCompleted) {
-        [self loadData];
-    }
 }
 
 @end

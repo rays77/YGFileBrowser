@@ -24,6 +24,9 @@ static const NSString *Application_types[Application_count] = {@"apk",@"APK",@"i
 #define CJScreenWidth        [UIScreen mainScreen].bounds.size.width
 #define CJScreenHeight       [UIScreen mainScreen].bounds.size.height
 
+///判断是否为iPhoneX
+#define Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
 //文件默认存储的路径/Inbox路径
 //#define HomeFilePath [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CJFileCache1"]
 #define HomeFilePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"Inbox"]

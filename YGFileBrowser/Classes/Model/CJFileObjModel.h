@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, MKFileType) {
 
 @property (assign, nonatomic) MKFileType fileType;
 @property (nonatomic,strong) NSArray *typeLimits;//类型限制
+@property (nonatomic,assign) BOOL allowEdite;//是否允许编辑（删除）
 @property (nonatomic,assign) BOOL allowSelect;//是否允许被选择
 @property (nonatomic,assign) BOOL select;//是否被选中
 

@@ -21,12 +21,16 @@
 
 - (IBAction)file:(UIButton *)sender {
     YGFileBrowserController *vc = [[YGFileBrowserController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
     vc.fileSelectVcDelegate = self;
-    vc.typeLimits = @[@"png", @"PNG", @"jpg", @"JPG", @"jpeg", @"JPEG", @"docx"];
-    vc.offsetY = 64;
+//    vc.typeLimits = @[@"png", @"PNG", @"jpg", @"JPG", @"jpeg", @"JPEG", @"docx"];
+    vc.offsetY = [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height;
     vc.maxSelect = 5;
     vc.maxFileSize = 1572864;
     [self.navigationController pushViewController:vc animated:YES];
+    
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - FileSelectVcDelegate
