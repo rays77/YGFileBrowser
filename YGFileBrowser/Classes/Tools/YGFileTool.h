@@ -26,4 +26,6 @@
 /// 获取文件大小
 + (NSString *)getBytesFromDataLength:(NSInteger)dataLength; /**< 获取文件大小 */
 
++ (BOOL)containsObject:(NSArray *)contains string:(NSString *)string;
+
 @end

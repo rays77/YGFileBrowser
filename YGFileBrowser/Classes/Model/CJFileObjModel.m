@@ -10,6 +10,7 @@
 #import "UIImage+TYHSetting.h"
 #import "NSBundle+YGFileBrowser.h"
 #import "YGFileBrowser.h"
+#import "YGFileTool.h"
 
 @implementation CJFileObjModel
 {
@@ -36,7 +37,7 @@
     _fileUrl = _filePath;
     
     // 判断文件类型是否允许cell勾选，包含就不允许勾选
-    self.allowSelect = ![self.typeLimits containsObject:[filePath pathExtension]];
+    self.allowSelect = ![YGFileTool containsObject:self.typeLimits string:[filePath pathExtension]];
     
     self.name = [filePath lastPathComponent];
     
@@ -52,7 +53,7 @@
         
         NSArray *imageTypesArray = [NSArray arrayWithObjects: IMAGES_TYPES count: IMAGES_TYPES_COUNT];
         
-        if([imageTypesArray containsObject: [filePath pathExtension]]){
+        if([YGFileTool containsObject:imageTypesArray string:[filePath pathExtension]]){
             self.image = [UIImage imageWithContentsOfFile: filePath];
             self.fileType = MKFileTypeUnknown;
         }else {

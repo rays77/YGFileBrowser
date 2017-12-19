@@ -55,6 +55,7 @@
     }
     return self;
 }
+
 - (UIImage *)norImage
 {
     if (_norImage == nil) {
@@ -91,23 +92,27 @@
     [super layoutSubviews];
     
     CGFloat margin = 12;
-    CGFloat w = 48;
-    CGFloat h = 48;
+    
     [_headImagV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(margin);
+        make.top.equalTo(self.mas_top).offset(8);
+        make.bottom.equalTo(self.mas_bottom).offset(-8);
+        make.width.equalTo(self.headImagV.mas_height);
         make.centerY.equalTo(self.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(w, h));
     }];
+    
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImagV.mas_right).offset(10);
-        make.centerY.equalTo(self.mas_centerY).offset(-13);
         make.right.equalTo(self.sendBtn.mas_left).offset(-margin);
+        make.top.equalTo(self.headImagV.mas_top).offset(2);
     }];
+    
     [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImagV.mas_right).offset(10);
-        make.centerY.equalTo(self.mas_centerY).offset(13);
         make.right.equalTo(self.sendBtn.mas_left).offset(-margin);
+        make.bottom.equalTo(self.headImagV.mas_bottom).offset(-2);
     }];
+    
     [_sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-margin);
         make.centerY.equalTo(self.mas_centerY);

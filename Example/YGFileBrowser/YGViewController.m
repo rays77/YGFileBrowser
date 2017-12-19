@@ -23,7 +23,7 @@
     YGFileBrowserController *vc = [[YGFileBrowserController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     vc.fileSelectVcDelegate = self;
-//    vc.typeLimits = @[@"png", @"PNG", @"jpg", @"JPG", @"jpeg", @"JPEG", @"docx"];
+    vc.typeLimits = @[@"png", @"jpg", @"jpeg", @"docx", @"mp4"];
     vc.offsetY = [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height;
     vc.maxSelect = 5;
     vc.maxFileSize = 3145728; //3M 限制

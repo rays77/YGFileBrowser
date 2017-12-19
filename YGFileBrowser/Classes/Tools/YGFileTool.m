@@ -66,7 +66,8 @@
                                     model.allowEdite = NO;
                                     
                                     NSString *filePath = [NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]];
-                                    model.allowSelect = ![typeLimits containsObject:[filePath pathExtension]];
+                                    
+                                    model.allowSelect = ![YGFileTool containsObject:typeLimits string:[filePath pathExtension]];
                                     
 //                                    [self.albumPic addObject:model];
                                     
@@ -142,7 +143,7 @@
                     
                     model.allowEdite = NO;
                     
-                    model.allowSelect = ![typeLimits containsObject:[[urlAsset.URL absoluteString] pathExtension]];
+                    model.allowSelect = ![YGFileTool containsObject:typeLimits string:[[urlAsset.URL absoluteString] pathExtension]];
                     
 //                    [self.videoArray addObject:model];
                     
@@ -162,6 +163,26 @@
 }
 
 #pragma mark - Tool
+
++ (BOOL)containsObject:(NSArray *)contains string:(NSString *)string {
+    if (contains.count <= 0) {
+        return NO;
+    }
+    
+    if (string == nil || string.length <= 0 || string == (id)(kCFNull)) {
+        return NO;
+    }
+    
+    __block BOOL contain = NO;
+    [contains enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([string compare:obj options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame) {
+            contain = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return contain;
+}
 
 + (NSString *)getPHImageFileURLPath:(NSString *)path {
     NSArray *pathList = [path componentsSeparatedByString:@"//"];

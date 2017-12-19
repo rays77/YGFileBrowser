@@ -8,6 +8,7 @@
 
 #import "VeUnOpenFileView.h"
 #import "Masonry.h"
+#import "YGFileTool.h"
 #import "YGFileBrowser.h"
 #import "CJFileObjModel.h"
 #import "UIImage+TYHSetting.h"
@@ -85,7 +86,7 @@
     _model = model;
     NSArray *imageTypesArray = [NSArray arrayWithObjects: IMAGES_TYPES count: IMAGES_TYPES_COUNT];
 
-    if([imageTypesArray containsObject: [_model.fileUrl pathExtension]] || _model.image){
+    if([YGFileTool containsObject:imageTypesArray string:[_model.fileUrl pathExtension]] || _model.image){
         
 //        [_fileImage sd_setImageWithURL:[NSURL URLWithString:_model.fileUrl] placeholderImage:_model.image];
         _fileImage.image = _model.image;
