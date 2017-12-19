@@ -240,7 +240,7 @@ CGFloat toolBarHeight = 49;
 - (VeFileManagerToolBar *)assetGridToolBar
 {
     if (_assetGridToolBar == nil) {
-        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.docVC.view.frame) - (self.minusNavHeight ? ([UIApplication sharedApplication].statusBarFrame.size.height-self.navigationController.navigationBar.frame.size.height) : 0), CJScreenWidth, toolBarHeight+(Is_iPhoneX?34:0));
+        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.docVC.view.frame) - (self.minusNavHeight ? [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height : 0), CJScreenWidth, toolBarHeight+(Is_iPhoneX?34:0));
         _assetGridToolBar = [[VeFileManagerToolBar alloc] initWithFrame:frame];
         _assetGridToolBar.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
         _assetGridToolBar.delegate = self;

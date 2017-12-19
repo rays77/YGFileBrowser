@@ -1,6 +1,6 @@
 {
   "name": "YGFileBrowser",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "summary": "iOS文件管理和预览.",
   "description": "iOS文件管理和预览，可预览图片，word，txt，pdf，ptt，等。",
   "homepage": "https://github.com/rays77/YGFileBrowser",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/rays77/YGFileBrowser.git",
-    "tag": "0.1.8"
+    "tag": "0.2.0"
   },
   "platforms": {
     "ios": "8.0"

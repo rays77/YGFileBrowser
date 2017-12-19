@@ -64,6 +64,10 @@
                                     model.fileData = UIImageJPEGRepresentation(result,0.5);
                                     model.name = [[NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]] lastPathComponent];
                                     model.allowEdite = NO;
+                                    
+                                    NSString *filePath = [NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]];
+                                    model.allowSelect = ![typeLimits containsObject:[filePath pathExtension]];
+                                    
 //                                    [self.albumPic addObject:model];
                                     
                                     // 提取数据
@@ -127,7 +131,7 @@
                         model.fileSizefloat += seconds * rate;
                     }
                     
-//                    AVURLAsset *urlAsset = (AVURLAsset *)asset;
+                    AVURLAsset *urlAsset = (AVURLAsset *)asset;
 //                    model.fileUrl =  [urlAsset.URL absoluteString];
                     
                     model.fileSize = [NSString stringWithFormat:@"%.2lfM",model.fileSizefloat / 1024 / 1024];
@@ -137,6 +141,8 @@
                     model.fileData = [asset mj_keyValues][@"propertyListForProxy"][@"moop"];
                     
                     model.allowEdite = NO;
+                    
+                    model.allowSelect = ![typeLimits containsObject:[[urlAsset.URL absoluteString] pathExtension]];
                     
 //                    [self.videoArray addObject:model];
                     

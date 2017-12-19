@@ -26,7 +26,7 @@
 //    vc.typeLimits = @[@"png", @"PNG", @"jpg", @"JPG", @"jpeg", @"JPEG", @"docx"];
     vc.offsetY = [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height;
     vc.maxSelect = 5;
-    vc.maxFileSize = 1572864;
+    vc.maxFileSize = 3145728; //3M 限制
     [self.navigationController pushViewController:vc animated:YES];
     
 //    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
