@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 typedef NS_ENUM(NSInteger, MKFileType) {
     MKFileTypeUnknown = -1, //其他
@@ -36,6 +37,8 @@ typedef NS_ENUM(NSInteger, MKFileType) {
 @property (copy, nonatomic) NSString *creatTime;
 
 @property (strong, nonatomic) UIImage *image; //图标
+
+@property (strong, nonatomic) PHAsset *asset; //相册图片、视频 asset
 
 @property (assign, nonatomic) MKFileType fileType;
 @property (nonatomic,strong) NSArray *typeLimits;//类型限制

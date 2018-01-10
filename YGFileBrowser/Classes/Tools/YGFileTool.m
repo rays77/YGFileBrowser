@@ -6,8 +6,6 @@
 //
 
 #import "YGFileTool.h"
-#import <Photos/Photos.h>
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "CJFileObjModel.h"
 #import "MJExtension.h"
 
@@ -42,13 +40,13 @@
                     CJFileObjModel *model = [[CJFileObjModel alloc] init];
                     model.typeLimits = typeLimits;
                     model.creatTime = [dateFormatter stringFromDate:asset.creationDate];
-                    
+                    model.asset = asset;
                     //请求图片
                     PHImageRequestOptions *imageOption = [[PHImageRequestOptions alloc] init];
                     imageOption.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-                    imageOption.resizeMode = PHImageRequestOptionsResizeModeFast;
+                    imageOption.resizeMode = PHImageRequestOptionsResizeModeExact;
                     
-                    [manager requestImageForAsset:asset targetSize:CGSizeMake(70, 70) contentMode:PHImageContentModeAspectFill options:imageOption resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                    [manager requestImageForAsset:asset targetSize:CGSizeMake(140, 140) contentMode:PHImageContentModeAspectFill options:imageOption resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                         
                         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
                         
@@ -57,19 +55,18 @@
                             [manager requestImageDataForAsset:asset options:imageOption resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
                                 BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
                                 if (downloadFinined && imageData) {
-//                                    model.filePath = [NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]];
+//                                    model.filePath = [[info objectForKey:@"PHImageFileURLKey"] absoluteString];
                                     model.fileSizefloat = imageData.length;
                                     model.fileSize = [self getBytesFromDataLength:model.fileSizefloat];
                                     model.image = result;
                                     model.fileData = UIImageJPEGRepresentation(result,0.5);
                                     model.name = [[NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]] lastPathComponent];
+                                    
                                     model.allowEdite = NO;
                                     
                                     NSString *filePath = [NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]];
                                     
                                     model.allowSelect = ![YGFileTool containsObject:typeLimits string:[filePath pathExtension]];
-                                    
-//                                    [self.albumPic addObject:model];
                                     
                                     // 提取数据
                                     if (extract) {
@@ -104,7 +101,7 @@
             PHImageManager *manager = [PHImageManager defaultManager];
             // 视频请求对象
             PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
-            options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
+            options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
             
             if ([voideResult count] <= 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -118,8 +115,9 @@
                 CJFileObjModel *model = [[CJFileObjModel alloc] init];
                 model.typeLimits = typeLimits;
                 model.creatTime = [dateFormatter stringFromDate:obj.creationDate];
+                model.asset = obj;
                 
-                [manager requestImageForAsset:obj targetSize:CGSizeMake(80, 80) contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                [manager requestImageForAsset:obj targetSize:CGSizeMake(160, 160) contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                     model.image = result;
                 }];
                 [manager requestAVAssetForVideo:obj options:options resultHandler:^(AVAsset * asset, AVAudioMix * audioMix, NSDictionary * info) {
@@ -137,15 +135,14 @@
                     
                     model.fileSize = [NSString stringWithFormat:@"%.2lfM",model.fileSizefloat / 1024 / 1024];
                     
-                    model.name = [asset mj_keyValues][@"propertyListForProxy"][@"name"];
-                    
-                    model.fileData = [asset mj_keyValues][@"propertyListForProxy"][@"moop"];
+//                    model.name = [asset mj_keyValues][@"propertyListForProxy"][@"name"];
+                    model.name = [[urlAsset.URL absoluteString] lastPathComponent];
+              
+//                    model.fileData = [asset mj_keyValues][@"propertyListForProxy"][@"moop"];
                     
                     model.allowEdite = NO;
                     
                     model.allowSelect = ![YGFileTool containsObject:typeLimits string:[[urlAsset.URL absoluteString] pathExtension]];
-                    
-//                    [self.videoArray addObject:model];
                     
                     // 提取数据
                     if (extract) {
@@ -159,6 +156,21 @@
                 }];
             }];
         });
+    }
+}
+
++ (void)request:(PHAsset *)asset size:(CGSize)size model:(PHImageContentMode)model options:(nullable id)options resultHandler:(nonnull void (^)(UIImage * _Nullable image, AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info))resultHandler
+{
+    PHImageManager *manager = [PHImageManager defaultManager];
+    
+    if (asset.mediaType == PHAssetMediaTypeImage) {
+        [manager requestImageForAsset:asset targetSize:size contentMode:model options:options resultHandler:^(UIImage * _Nullable image, NSDictionary * _Nullable info) {
+            resultHandler(image, nil, nil, info);
+        }];
+    } else {
+        [manager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+            resultHandler(nil, asset, audioMix, info);
+        }];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "YGViewController.h"
 #import "YGFileBrowserController.h"
+#import "YGFileTool.h"
 
 @interface YGViewController () <FileSelectVcDelegate>
 
@@ -20,12 +21,19 @@
 }
 
 - (IBAction)file:(UIButton *)sender {
+    for (UIView *view in self.view.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    
+    
     YGFileBrowserController *vc = [[YGFileBrowserController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     vc.fileSelectVcDelegate = self;
-    vc.typeLimits = @[@"png", @"jpg", @"jpeg", @"docx", @"mp4"];
+    vc.typeLimits = @[@"docx", @"mp4"];
     vc.offsetY = [UIApplication sharedApplication].statusBarFrame.size.height+self.navigationController.navigationBar.frame.size.height;
-    vc.maxSelect = 5;
+    vc.maxSelect = 10;
     vc.maxFileSize = 3145728; //3M 限制
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -38,6 +46,27 @@
 - (void)fileViewControlerSelected:(NSArray<CJFileObjModel *> *)fileModels
 {
     NSLog(@"fileModels----%@", fileModels);
+    
+    [fileModels enumerateObjectsUsingBlock:^(CJFileObjModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.frame = CGRectMake(10, (80+10) * idx + 70, 80, 80);
+        if (obj.asset && obj.asset.mediaType == PHAssetMediaTypeImage) {
+            //请求图片
+            PHImageRequestOptions *imageOption = [[PHImageRequestOptions alloc] init];
+            imageOption.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+            imageOption.resizeMode = PHImageRequestOptionsResizeModeExact;
+            
+            [YGFileTool request:obj.asset size:CGSizeMake(1242, 2208) model:PHImageContentModeAspectFit options:imageOption resultHandler:^(UIImage * _Nullable image, AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                
+                if (image) {
+                    imageView.image = image;
+                }
+            }];
+            [self.view addSubview:imageView];
+        } else {
+           
+        }
+    }];
 }
 
 @end

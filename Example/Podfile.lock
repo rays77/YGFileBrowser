@@ -19,7 +19,7 @@ PODS:
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
-  - YGFileBrowser (0.2.1):
+  - YGFileBrowser (0.2.2):
     - AFNetworking (~> 3.0)
     - Masonry (~> 0.6.3)
     - MJExtension (~> 3.0.10)
@@ -37,7 +37,7 @@ SPEC CHECKSUMS:
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
-  YGFileBrowser: 158e41c401a5bca6973e4be9b97ad21726a13d42
+  YGFileBrowser: f6d458788b6910c46207bf73e467279883b19d2a
 
 PODFILE CHECKSUM: 92f33d4829c46ac640843666f431fad32a8d539c
 
