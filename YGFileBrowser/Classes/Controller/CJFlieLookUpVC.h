@@ -11,6 +11,9 @@
 @interface CJFlieLookUpVC : UIViewController
 @property (nonatomic,copy) void (^downloadCompleteBlock)(CJFileObjModel *model);
 
+// 扩展用
+@property (nonatomic, strong) id params;
+
 - (instancetype)initWithFileModel:(CJFileObjModel *)fileModel;
 
 @end

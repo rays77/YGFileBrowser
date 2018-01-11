@@ -80,6 +80,7 @@ CGFloat toolBarHeight = 49;
     
     [self initNAV];
     
+    // 加载本地文件
     [self loadData];
     
     [self departmentView];

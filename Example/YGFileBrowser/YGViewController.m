@@ -47,6 +47,14 @@
 {
     NSLog(@"fileModels----%@", fileModels);
     
+//    for (int i = 0; i < fileModels.count; i++) {
+//        UIImageView *imageView = [[UIImageView alloc] init];
+//        imageView.frame = CGRectMake(10, (80+10) * i + 70, 80, 80);
+//        imageView.image = fileModels[i].image;
+//        [self.view addSubview:imageView];
+//    }
+    
+
     [fileModels enumerateObjectsUsingBlock:^(CJFileObjModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.frame = CGRectMake(10, (80+10) * idx + 70, 80, 80);

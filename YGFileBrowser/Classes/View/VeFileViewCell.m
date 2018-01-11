@@ -13,7 +13,6 @@
 #import "NSBundle+YGFileBrowser.h"
 
 @interface VeFileViewCell ()
-@property (nonatomic,strong) UIImageView *headImagV;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UILabel *detailLabel;
 @property (nonatomic,strong) UIButton *sendBtn;

@@ -12,12 +12,27 @@
 
 @interface YGFileTool : NSObject
 
-/// 加载本地相册
+/**
+ 进入app设置页面
+ */
++ (void)openAppSettings;
+
+/**
+ 获取相册权限
+ @param handler 获取权限结果
+ */
++ (void)requestPhotosLibraryAuthorization:(void(^_Nullable)(BOOL ownAuthorization))handler;
+
+/**
+ 加载本地相册
+ */
 + (void)loadPictureTypeLimits:(NSArray *_Nullable)typeLimits
                       extract:(void(^_Nullable)(CJFileObjModel * _Nullable model))extract
                     completed:(void(^_Nullable)(void))completed; /**< 加载本地相册 */
 
-/// 加载本地视频
+/**
+ 加载本地视频
+ */
 + (void)loadVideoTypeLimits:(NSArray *_Nullable)typeLimits
                     extract:(void(^_Nullable)(CJFileObjModel * _Nullable model))extract
                   completed:(void(^_Nullable)(void))completed; /**< 加载本地视频 */

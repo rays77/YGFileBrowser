@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger, MKFileType) {
 
 -(instancetype)initWithFilePath:(NSString *)filePath typeLimits:(NSArray *)typeLimits;
 
++ (NSString *)getBytesFromDataLength:(NSInteger)dataLength;
+
 @property (copy, nonatomic) NSString *filePath; //文件路径
 @property (copy, nonatomic) NSString *fileUrl; //文件URL
 

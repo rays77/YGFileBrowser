@@ -11,6 +11,7 @@
 
 @interface VeFileViewCell : UITableViewCell
 
+@property (nonatomic,strong) UIImageView *headImagV;
 @property (nonatomic,strong)CJFileObjModel *model;
 @property (nonatomic,copy) void (^Clickblock)(CJFileObjModel *model,UIButton *btn);
 

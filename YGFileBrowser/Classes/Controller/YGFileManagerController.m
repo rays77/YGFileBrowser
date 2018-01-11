@@ -12,6 +12,7 @@
 #import "CJFlieLookUpVC.h"
 #import "CJFileObjModel.h"
 #import "UIView+CJToast.h"
+#import "YGFileTool.h"
 #import "Masonry.h"
 
 @interface YGFileManagerController () <FileTableViewDelegate>
@@ -27,6 +28,19 @@
 @end
 
 @implementation YGFileManagerController
+
++ (void)showAlter:(UIViewController *)preVC {
+    UIAlertController *alter = [UIAlertController alertControllerWithTitle:@"尚未获取到相册权限" message:@"是否到设置处进行权限设置" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionSure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [YGFileTool openAppSettings];
+    }];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alter dismissViewControllerAnimated:true completion:nil];
+    }];
+    [alter addAction:actionSure];
+    [alter addAction:actionCancel];
+    [preVC presentViewController:alter animated:true completion:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -107,14 +121,33 @@
     return _tableView;
 }
 
+- (void)setAssets:(PHFetchResult<PHAsset *> *)assets {
+    _assets = assets;
+    
+    NSMutableArray *items = [[NSMutableArray alloc] initWithCapacity:[assets count]];
+
+    // 填充模型
+    for (PHAsset *phAsset in assets) {
+        CJFileObjModel *model = [CJFileObjModel alloc];
+        model.typeLimits = self.typeLimits;
+        model.asset = phAsset;
+        [items addObject:model];
+    }
+    
+    self.dataItems = items;
+}
+
 - (void)setDataItems:(NSMutableArray *)dataItems {
     _dataItems = dataItems;
+    self.tableView.options_image = _options_image;
+    self.tableView.options_video = _options_video;
     self.tableView.dataItems = _dataItems;
     
     [self nullData];
 }
 
 - (void)nullData {
+    /*
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.dataItems.count <= 0) {
             self.nullTitleLbl.text = @"该分类没有文件";
@@ -124,6 +157,15 @@
             self.nullView.hidden = YES;
         }
     });
+     */
+    
+    if (self.dataItems.count <= 0) {
+        self.nullTitleLbl.text = @"该分类没有文件";
+        self.nullView.hidden = NO;
+    } else {
+        _nullTitleLbl.text = @"正在加载文件...";
+        self.nullView.hidden = YES;
+    }
 }
 
 - (void)reloadData {
