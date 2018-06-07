@@ -130,6 +130,7 @@
     for (PHAsset *phAsset in assets) {
         CJFileObjModel *model = [CJFileObjModel alloc];
         model.typeLimits = self.typeLimits;
+        model.allowTypes = self.allowTypes;
         model.asset = phAsset;
         [items addObject:model];
     }

@@ -98,7 +98,7 @@ CGFloat toolBarHeight = 49;
     NSArray<NSString *> *subPathsArray = [fileManager contentsOfDirectoryAtPath:HomeFilePath error: NULL];
     
     for(NSString *str in subPathsArray){
-        CJFileObjModel *object = [[CJFileObjModel alloc] initWithFilePath:[NSString stringWithFormat:@"%@/%@",HomeFilePath, str] typeLimits:self.typeLimits];
+        CJFileObjModel *object = [[CJFileObjModel alloc] initWithFilePath:[NSString stringWithFormat:@"%@/%@",HomeFilePath, str] typeLimits:self.typeLimits allowTypes:self.allowTypes];
         object.allowEdite = YES;
         [self.originFileArray addObject: object];
     }
@@ -254,6 +254,7 @@ CGFloat toolBarHeight = 49;
     if (_docVC == nil) {
         _docVC = [[YGFileManagerController alloc] init];
         _docVC.typeLimits = self.typeLimits;
+        _docVC.allowTypes = self.allowTypes;
         [self addChildViewController:_docVC];
         [_docVC didMoveToParentViewController:self];
         CGRect frame = CGRectMake(0, CGRectGetMaxY(self.departmentView.frame), CJScreenWidth, CJScreenHeight-CGRectGetMaxY(self.departmentView.frame)-toolBarHeight-(Is_iPhoneX?34:0));
@@ -271,6 +272,7 @@ CGFloat toolBarHeight = 49;
     if (_videoVC == nil) {
         _videoVC = [[YGFileVideoController alloc] init];
         _videoVC.typeLimits = self.typeLimits;
+        _videoVC.allowTypes = self.allowTypes;
         _videoVC.view.frame = _currentVC.view.frame;
         [self addChildViewController:_videoVC];
         [_videoVC didMoveToParentViewController:self];
@@ -283,6 +285,7 @@ CGFloat toolBarHeight = 49;
     if (_albumVC == nil) {
         _albumVC = [[YGFileAlbumController alloc] init];
         _albumVC.typeLimits = self.typeLimits;
+        _albumVC.allowTypes = self.allowTypes;
         _albumVC.view.frame = _currentVC.view.frame;
         [self addChildViewController:_albumVC];
         [_albumVC didMoveToParentViewController:self];
@@ -295,6 +298,7 @@ CGFloat toolBarHeight = 49;
     if (_musicVC == nil) {
         _musicVC = [[YGFileManagerController alloc] init];
         _musicVC.typeLimits = self.typeLimits;
+        _musicVC.allowTypes = self.allowTypes;
         _musicVC.view.frame = _currentVC.view.frame;
         [self addChildViewController:_musicVC];
         [_musicVC didMoveToParentViewController:self];
@@ -309,6 +313,7 @@ CGFloat toolBarHeight = 49;
     if (_otherVC == nil) {
         _otherVC = [[YGFileManagerController alloc] init];
         _otherVC.typeLimits = self.typeLimits;
+        _otherVC.allowTypes = self.allowTypes;
         _otherVC.view.frame = _currentVC.view.frame;
         [self addChildViewController:_otherVC];
         [_otherVC didMoveToParentViewController:self];

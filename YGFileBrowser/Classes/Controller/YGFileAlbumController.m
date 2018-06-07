@@ -60,6 +60,7 @@
     NSMutableArray *list = [[NSMutableArray alloc] init];
     
     [YGFileTool loadPictureTypeLimits:self.typeLimits
+                           allowTypes:self.allowTypes
                               extract:^(CJFileObjModel *model) {
                                   [list addObject:model];
                               } completed:^{

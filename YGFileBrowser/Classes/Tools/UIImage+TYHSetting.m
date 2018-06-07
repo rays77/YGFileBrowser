@@ -38,7 +38,7 @@
     NSArray *appViodeArray = [NSArray arrayWithObjects: Application_types count: Application_count];
     NSArray *AVArray = [NSArray arrayWithObjects: AV_TYPES count: AV_COUNT];
     
-    if([YGFileTool containsObject:textTypesArray string:[model.filePath pathExtension]]){
+    if([YGFileTool containsObject:textTypesArray allowTypes:nil string:[model.filePath pathExtension]]){
         model.fileType = MKFileTypeTxt;
         if (![[model.filePath pathExtension] compare:@"xls" options:NSCaseInsensitiveSearch] || ![[model.filePath pathExtension] compare:@"xlsx" options:NSCaseInsensitiveSearch]) {
             return [NSBundle yg_imageNamed:@"excel-文档@2x.png"];
@@ -53,15 +53,15 @@
             return [NSBundle yg_imageNamed:@"word-文档@2x.png"];
         }
     }
-    else if([YGFileTool containsObject:viceViodeArray string:[model.filePath pathExtension]]) {
+    else if([YGFileTool containsObject:viceViodeArray allowTypes:nil string:[model.filePath pathExtension]]) {
         model.fileType = MKFileTypeAudioVidio;
         return [NSBundle yg_imageNamed:@"音乐@2x.png"];
     }
-    else if([YGFileTool containsObject:AVArray string:[model.filePath pathExtension]]) {
+    else if([YGFileTool containsObject:AVArray allowTypes:nil string:[model.filePath pathExtension]]) {
         model.fileType = MKFileTypeAudioVidio;
         return [NSBundle yg_imageNamed:@"视频@2x.png"];
     }
-    else if([YGFileTool containsObject:appViodeArray string:[model.filePath pathExtension]]){
+    else if([YGFileTool containsObject:appViodeArray allowTypes:nil string:[model.filePath pathExtension]]){
         model.fileType = MKFileTypeApplication;
         return  [NSBundle yg_imageNamed: @"未知问题-本机@2x.png"];
     }else{
@@ -83,7 +83,7 @@
     NSArray *appViodeArray = [NSArray arrayWithObjects: Application_types count: Application_count];
     NSArray *AVArray = [NSArray arrayWithObjects: AV_TYPES count: AV_COUNT];
 
-    if([YGFileTool containsObject:textTypesArray string:[model.fileUrl pathExtension]]){
+    if([YGFileTool containsObject:textTypesArray allowTypes:nil string:[model.fileUrl pathExtension]]){
         model.fileType = MKFileTypeTxt;
         if (![[model.fileUrl pathExtension] compare:@"xls" options:NSCaseInsensitiveSearch] || ![[model.fileUrl pathExtension] compare:@"xlsx" options:NSCaseInsensitiveSearch]) {
             return  [NSBundle yg_imageNamed:@"excel-文件详情@2x.png"];
@@ -98,15 +98,15 @@
             return [NSBundle yg_imageNamed:@"word-文件详情@2x.png"];
         }
     }
-    else if([YGFileTool containsObject:viceViodeArray string:[model.fileUrl pathExtension]]){
+    else if([YGFileTool containsObject:viceViodeArray allowTypes:nil string:[model.fileUrl pathExtension]]){
         model.fileType = MKFileTypeAudioVidio;
         return[NSBundle yg_imageNamed:@"音乐-文件详情@2x.png"];
     }
-    else if ([YGFileTool containsObject:AVArray string:[model.fileUrl pathExtension]]) {
+    else if ([YGFileTool containsObject:AVArray allowTypes:nil string:[model.fileUrl pathExtension]]) {
         model.fileType = MKFileTypeAudioVidio;
         return [NSBundle yg_imageNamed:@"视频-文件详情@2x.png"];
     }
-    else if([YGFileTool containsObject:appViodeArray string:[model.fileUrl pathExtension]]){
+    else if([YGFileTool containsObject:appViodeArray allowTypes:nil string:[model.fileUrl pathExtension]]){
         model.fileType = MKFileTypeApplication;
         return  [NSBundle yg_imageNamed:@"未知应用-文件详情@2x.png"];
     }

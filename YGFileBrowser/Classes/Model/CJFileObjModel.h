@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, MKFileType) {
 
 @interface CJFileObjModel : NSObject
 
--(instancetype)initWithFilePath:(NSString *)filePath typeLimits:(NSArray *)typeLimits;
+-(instancetype)initWithFilePath:(NSString *)filePath typeLimits:(NSArray *)typeLimits allowTypes:(NSArray *)allowTypes;
 
 + (NSString *)getBytesFromDataLength:(NSInteger)dataLength;
 
@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, MKFileType) {
 @property (strong, nonatomic) PHAsset *asset; //相册图片、视频 asset
 
 @property (assign, nonatomic) MKFileType fileType;
+@property (nonatomic,strong) NSArray *allowTypes;
 @property (nonatomic,strong) NSArray *typeLimits;//类型限制
 @property (nonatomic,assign) BOOL allowEdite;//是否允许编辑（删除）
 @property (nonatomic,assign) BOOL allowSelect;//是否允许被选择

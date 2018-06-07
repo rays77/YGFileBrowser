@@ -20,6 +20,9 @@
 
 @property (nonatomic, strong) PHFetchResult<PHAsset *> * _Nullable assets;
 
+/// 允许显示的文件类型，默认无限制(不能和 typeLimits 同时使用)
+@property (nonatomic,strong) NSArray * _Nullable allowTypes;
+    
 @property (nonatomic, strong) NSArray * _Nullable typeLimits;
 
 @property (nonatomic,strong) NSMutableArray * _Nullable dataItems;

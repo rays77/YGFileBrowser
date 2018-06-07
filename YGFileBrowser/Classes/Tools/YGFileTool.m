@@ -40,7 +40,7 @@
     }
 }
 
-+ (void)loadPictureTypeLimits:(NSArray *)typeLimits extract:(void (^)(CJFileObjModel *))extract completed:(void (^)(void))completed {
++ (void)loadPictureTypeLimits:(NSArray *)typeLimits allowTypes:(NSArray *)allowTypes extract:(void (^)(CJFileObjModel *))extract completed:(void (^)(void))completed {
     PHAuthorizationStatus author = [PHPhotoLibrary authorizationStatus];
     if (author == PHAuthorizationStatusRestricted || author ==PHAuthorizationStatusDenied) {
         //无权限
@@ -67,6 +67,7 @@
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                     [dateFormatter setDateFormat:@"YY-MM-dd HH:mm:ss"];
                     CJFileObjModel *model = [[CJFileObjModel alloc] init];
+                    model.allowTypes = allowTypes;
                     model.typeLimits = typeLimits;
                     model.creatTime = [dateFormatter stringFromDate:asset.creationDate];
                     model.asset = asset;
@@ -95,7 +96,7 @@
                                     
                                     NSString *filePath = [NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]];
                                     
-                                    model.allowSelect = ![YGFileTool containsObject:typeLimits string:[filePath pathExtension]];
+                                    model.allowSelect = ![YGFileTool containsObject:typeLimits allowTypes:allowTypes string:[filePath pathExtension]];
                                     
                                     // 提取数据
                                     if (extract) {
@@ -116,7 +117,7 @@
     }
 }
 
-+ (void)loadVideoTypeLimits:(NSArray *)typeLimits extract:(void (^)(CJFileObjModel *))extract completed:(void (^)(void))completed {
++ (void)loadVideoTypeLimits:(NSArray *)typeLimits allowTypes:(NSArray *)allowTypes extract:(void (^)(CJFileObjModel *))extract completed:(void (^)(void))completed {
     PHAuthorizationStatus author = [PHPhotoLibrary authorizationStatus];
     if (author == PHAuthorizationStatusRestricted || author ==PHAuthorizationStatusDenied) {
         //无权限
@@ -143,6 +144,7 @@
                 [dateFormatter setDateFormat:@"YY-MM-dd HH:mm:ss"];
                 CJFileObjModel *model = [[CJFileObjModel alloc] init];
                 model.typeLimits = typeLimits;
+                model.allowTypes = allowTypes;
                 model.creatTime = [dateFormatter stringFromDate:obj.creationDate];
                 model.asset = obj;
                 
@@ -171,7 +173,7 @@
                     
                     model.allowEdite = NO;
                     
-                    model.allowSelect = ![YGFileTool containsObject:typeLimits string:[[urlAsset.URL absoluteString] pathExtension]];
+                    model.allowSelect = ![YGFileTool containsObject:typeLimits allowTypes:allowTypes string:[[urlAsset.URL absoluteString] pathExtension]];
                     
                     // 提取数据
                     if (extract) {
@@ -205,8 +207,9 @@
 
 #pragma mark - Tool
 
-+ (BOOL)containsObject:(NSArray *)contains string:(NSString *)string {
-    if (contains.count <= 0) {
++ (BOOL)containsObject:(NSArray *)contains allowTypes:(NSArray *)allowTypes string:(NSString *)string {
+    
+    if (contains.count <= 0 && allowTypes.count <= 0) {
         return NO;
     }
     
@@ -214,15 +217,26 @@
         return NO;
     }
     
-    __block BOOL contain = NO;
-    [contains enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([string compare:obj options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame) {
-            contain = YES;
-            *stop = YES;
-        }
-    }];
-    
-    return contain;
+    if (contains.count) {
+        __block BOOL contain = NO;
+        [contains enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([string compare:obj options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame) {
+                contain = YES;
+                *stop = YES;
+            }
+        }];
+        return contain;
+    }
+    else {
+        __block BOOL contain = YES;
+        [allowTypes enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([string compare:obj options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame) {
+                contain = NO;
+                *stop = YES;
+            }
+        }];
+        return contain;
+    }
 }
 
 + (NSString *)getPHImageFileURLPath:(NSString *)path {

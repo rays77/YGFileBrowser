@@ -27,6 +27,7 @@
  加载本地相册
  */
 + (void)loadPictureTypeLimits:(NSArray *_Nullable)typeLimits
+                   allowTypes:(NSArray *)allowTypes
                       extract:(void(^_Nullable)(CJFileObjModel * _Nullable model))extract
                     completed:(void(^_Nullable)(void))completed; /**< 加载本地相册 */
 
@@ -34,6 +35,7 @@
  加载本地视频
  */
 + (void)loadVideoTypeLimits:(NSArray *_Nullable)typeLimits
+                 allowTypes:(NSArray *)allowTypes
                     extract:(void(^_Nullable)(CJFileObjModel * _Nullable model))extract
                   completed:(void(^_Nullable)(void))completed; /**< 加载本地视频 */
 
@@ -49,6 +51,6 @@
 /// 获取文件大小
 + (NSString *_Nullable)getBytesFromDataLength:(NSInteger)dataLength; /**< 获取文件大小 */
 
-+ (BOOL)containsObject:(NSArray *_Nullable)contains string:(NSString *_Nullable)string;
++ (BOOL)containsObject:(NSArray *_Nullable)contains allowTypes:(NSArray *)allowTypes string:(NSString *_Nullable)string;
 
 @end

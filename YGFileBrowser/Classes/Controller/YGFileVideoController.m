@@ -60,6 +60,7 @@
     NSMutableArray *list = [[NSMutableArray alloc] init];
     
     [YGFileTool loadVideoTypeLimits:self.typeLimits
+                         allowTypes:self.allowTypes
                             extract:^(CJFileObjModel *model) {
                                 [list addObject:model];
                             } completed:^{

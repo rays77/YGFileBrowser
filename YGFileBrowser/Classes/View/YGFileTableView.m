@@ -137,7 +137,7 @@
                         
                         NSString *filePath = [NSString stringWithFormat:@"%@", [info objectForKey:@"PHImageFileURLKey"]];
                         
-                        actualFile.allowSelect = ![YGFileTool containsObject:actualFile.typeLimits string:[filePath pathExtension]];
+                        actualFile.allowSelect = ![YGFileTool containsObject:actualFile.typeLimits allowTypes:actualFile.allowTypes string:[filePath pathExtension]];
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             // 刷新Cell
@@ -200,7 +200,7 @@
             
             actualFile.allowEdite = NO;
             
-            actualFile.allowSelect = ![YGFileTool containsObject:actualFile.typeLimits string:[[urlAsset.URL absoluteString] pathExtension]];
+            actualFile.allowSelect = ![YGFileTool containsObject:actualFile.typeLimits allowTypes:actualFile.allowTypes string:[[urlAsset.URL absoluteString] pathExtension]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // 刷新Cell

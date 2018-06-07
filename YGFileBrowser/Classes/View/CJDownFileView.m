@@ -99,7 +99,7 @@
     _model = model;
     NSArray *imageTypesArray = [NSArray arrayWithObjects: IMAGES_TYPES count: IMAGES_TYPES_COUNT];
     
-    if([YGFileTool containsObject:imageTypesArray string:[_model.fileUrl pathExtension]] || _model.image){
+    if([YGFileTool containsObject:imageTypesArray allowTypes:nil string:[_model.fileUrl pathExtension]] || _model.image){
         
         [_fileImage sd_setImageWithURL:[NSURL URLWithString:_model.fileUrl] placeholderImage:_model.image];
         
