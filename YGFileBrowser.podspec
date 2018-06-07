@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YGFileBrowser'
-  s.version          = '0.2.6'
+  s.version          = '0.2.7'
   s.summary          = 'iOS文件管理和预览.'
 
 # This description is used to generate tags and improve search results.
